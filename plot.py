@@ -36,12 +36,14 @@ def plotDataMC(args,plot):
 	colors = createMyColors()		
 
 
-	eventCounts = totalNumberOfGeneratedEvents("files/mc")	
-	mcFiles = getFilePathsAndSampleNames("files/mc")
-	dataFile = getFilePathsAndSampleNames("files/")
+	eventCounts = totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/files/mc/CI")	
+	mcFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/files/mc/CI")
+	dataFile = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/files/")
 	print eventCounts
+	
+	
 	processes = []
-	for background in args.backgrounds:
+	for background	 in args.backgrounds:
 		processes.append(Process(getattr(Backgrounds,background),eventCounts))
 		
 	
@@ -49,15 +51,16 @@ def plotDataMC(args,plot):
 	for signal in args.signals:
 		signals.append(Process(getattr(Signals,signal),eventCounts))
 		
-	legend = TLegend(0.375, 0.6, 0.925, 0.925)
+	legend = TLegend(0.475, 0.65, 0.925, 0.925)
 	legend.SetFillStyle(0)
 	legend.SetBorderSize(0)
 	legend.SetTextFont(42)
 	#~ legend.SetNColumns(2)
-	legendEta = TLegend(0.15, 0.75, 0.7, 0.9)
-	legendEta.SetFillStyle(0)
-	legendEta.SetBorderSize(0)
-	legendEta.SetTextFont(42)
+
+	#legendEta = TLegend(0.15, 0.75, 0.7, 0.9)
+	#legendEta.SetFillStyle(0)
+	#legendEta.SetBorderSize(0)
+	#legendEta.SetTextFont(42)
 
 
 
@@ -80,18 +83,26 @@ def plotDataMC(args,plot):
 	legendHistData = ROOT.TH1F()
 	if args.data:	
 		legend.AddEntry(legendHistData,"Data","pe")	
-		legendEta.AddEntry(legendHistData,"Data","pe")	
+		#legendEta.AddEntry(legendHistData,"Data","pe")	
 
-	
+#new own addition (test)	
+	for signal in reversed(signals):
+		temphist = ROOT.TH1F()
+		temphist.SetFillColor(signal.theColor)
+		temphist.SetLineColor(signal.theLineColor)
+		legendHists.append(temphist.Clone)
+		legend.AddEntry(temphist,signal.label,"f")
+		#legendEta.AddEntry(temphist,signal.label,"f")
 
 
 
 	for process in reversed(processes):
 		temphist = ROOT.TH1F()
 		temphist.SetFillColor(process.theColor)
+		temphist.SetLineColor(process.theLineColor)
 		legendHists.append(temphist.Clone)
 		legend.AddEntry(temphist,process.label,"f")
-		legendEta.AddEntry(temphist,process.label,"f")
+		#legendEta.AddEntry(temphist,process.label,"f")
 
 
 
@@ -107,7 +118,7 @@ def plotDataMC(args,plot):
 			temphist.SetLineColor(Signal.theLineColor)
 			legendHists.append(temphist.Clone)		
 			legend.AddEntry(temphist,Signal.label,"l")
-			legendEta.AddEntry(temphist,Signal.label,"l")
+			#legendEta.AddEntry(temphist,Signal.label,"l")
 	
 	
 
@@ -169,9 +180,9 @@ def plotDataMC(args,plot):
 	print yMax, yMin, xMax, xMin
 	if plot.yMax == None:
 		if logScale:
-			yMax = yMax*1000
+			yMax = yMax*1500
 		else:
-			yMax = yMax*1.5
+			yMax = yMax*3
 	
 	else: yMax = plot.yMax
 	print plot.xMin, plot.xMax
@@ -192,15 +203,22 @@ def plotDataMC(args,plot):
 	if len(args.signals) != 0:
 		signalhists = []
 		for Signal in signals:
-			signalhist = Signal.createCombinedHistogram(lumi,plot,tree1,tree2,signal=True)
+			
+			signalhist = Signal.loadHistogram(lumi,files,plot)
 			signalhist.SetLineWidth(2)
-			signalhist.Add(stack.theHistogram)
+	#		signalhist.Add(stack.theHistogram)
 			signalhist.SetMinimum(0.1)
 			signalhist.Draw("samehist")
 			signalhists.append(signalhist)	
 
+	 
+	
 
 	drawStack.theStack.Draw("samehist")							
+
+
+	
+	
 
 	datahist.SetMinimum(0.1)
 	if args.data:
@@ -239,10 +257,10 @@ def plotDataMC(args,plot):
 	if args.ratio:
 
 		ratioPad.RedrawAxis()
-	if not os.path.exists("plots"):
-		os.makedirs("plots")	
+	if not os.path.exists("plotsSS"):
+		os.makedirs("plotsSS")	
 	print plot.fileName
-	hCanvas.Print("plots/"+plot.fileName+".pdf")
+	hCanvas.Print("plotsSS/"+plot.fileName+".png")
 
 					
 if __name__ == "__main__":
@@ -270,14 +288,21 @@ if __name__ == "__main__":
 
 	args = parser.parse_args()
 	if len(args.backgrounds) == 0:
-		args.backgrounds = ["NonPrompt","OtherPrompt","DrellYan"]
+		args.backgrounds = []
 
-	if len(args.signals) != 0:
-		args.plotSignal = True
+	#if len(args.signals) == 0:
+	#	args.signals = ["SimplifiedModel_mB_225_mn2_150_mn1_80","CITo2Mu_Lam22TeVConLL"]
+
+	#if len(args.signals) != 0:
+	#	args.plotSignal = True
 
 	if args.plot == "":
-		args.plot = ["massPlot"]
-	
+	        ## Normal plots
+ 	        #args.plot = ["massPlot","massPlot2","massPlot3"]
+		
+		## SS plots
+		args.plot = ["etaPlot","massPlot"]
+		
 	for plot in args.plot:
 		plotObject = getPlot(plot)
 		plotDataMC(args,plotObject)
