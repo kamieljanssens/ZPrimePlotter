@@ -16,67 +16,60 @@ import copy
 '''
 List of cross sections in pb
 '''	
-##
-#crossSections = {
-#"dyInclusive50":5765.4,
-#"dy50to120":1975,
-#"dy120to200":19.32,
-#"dy200to400":2.731,
-#"dy400to800": 0.241,
-#"dy800to1400":0.01678,
-#"dy1400to2300":0.00139,
-#"dy2300to3500":0.00008948,
-#"dy3500to4500":0.0000041,
-#"dy4500to6000":4.56E-7,
-#
-#"tW":35.6,
-#"Wantitop":35.6,
-#"Wjets":61526.7,
-#"WW200to600":1.385,
-#"WW600to1200":0.0566,
-#"WW1200to2500":0.003557,
-#"WW2500": 0.00005395,
-#"WWinclusive":12.178,
-#
-#"WZ":47.13,
-#"WZ_ext":47.13,
-#"ZZ_ext":16.523,
-#"ZZ":16.523,
-#
-#"ttbar_lep":87.31,
-#"ttbar_lep50to500":87.31,
-#"ttbar_lep_500to800":0.32611,
-#"ttbar_lep_800to1200":0.03265,
-#"ttbar_lep_1200to1800":0.00305,
-#"ttbar_lep1800toInf":0.00017,
-#
-#"qcd50to80":0,
-#"qcd80to120":2762530,
-#"qcd120to170":471100,
-#"qcd170to300":117276,
-#"qcd300to470":7823,
-#"qcd470to600":648.2,
-#"qcd600to800":186.9,
-#"qcd800to1000":32.293,
-#"qcd1000to1400":9.4183,
-#"qcd1400to1800":0.84265,
-#"qcd1800to2400":0.114943,
-#"qcd2400to3200":0.00682981,
-#"qcd3200":0.000165445,
-#
-#}	
 
-
-'''
-List of super symmetric cross sections in pb
-'''
 crossSections = {
-"CITo2Mu_Lam22TeVConLL":363.7,
-"CITo2Mu_Lam22TeVConLR":748.6,
-"CITo2Mu_Lam22TeVConRR":373.7,
-"CITo2Mu_Lam22TeVDesLL":355.1,
-"CITo2Mu_Lam22TeVDesLR":728.3,
-"CITo2Mu_Lam22TeVDesRR":362.9,
+"dyInclusive50":5765.4,
+"dy50to120":1975,
+"dy120to200":19.32,
+"dy200to400":2.731,
+"dy400to800": 0.241,
+"dy800to1400":0.01678,
+"dy1400to2300":0.00139,
+"dy2300to3500":0.00008948,
+"dy3500to4500":0.0000041,
+"dy4500to6000":4.56E-7,
+
+"tW":35.6,
+"Wantitop":35.6,
+"Wjets":61526.7,
+"WW200to600":1.385,
+"WW600to1200":0.0566,
+"WW1200to2500":0.003557,
+"WW2500": 0.00005395,
+"WWinclusive":12.178,
+
+"WZ":47.13,
+"WZ_ext":47.13,
+"ZZ_ext":16.523,
+"ZZ":16.523,
+
+"ttbar_lep":87.31,
+"ttbar_lep50to500":87.31,
+"ttbar_lep_500to800":0.32611,
+"ttbar_lep_800to1200":0.03265,
+"ttbar_lep_1200to1800":0.00305,
+"ttbar_lep1800toInf":0.00017,
+
+"qcd50to80":0,
+"qcd80to120":2762530,
+"qcd120to170":471100,
+"qcd170to300":117276,
+"qcd300to470":7823,
+"qcd470to600":648.2,
+"qcd600to800":186.9,
+"qcd800to1000":32.293,
+"qcd1000to1400":9.4183,
+"qcd1400to1800":0.84265,
+"qcd1800to2400":0.114943,
+"qcd2400to3200":0.00682981,
+"qcd3200":0.000165445,
+
+"CITo2Mu_Lam22TeVConLL":0.3637,#*100,
+"CITo2Mu_Lam22TeVConLR":0.7486,#*100,
+"CITo2Mu_Lam22TeVConRR":0.3737,#*100,
+"CITo2Mu_Lam22TeVDesLL":0.3551,#*100,
+"CITo2Mu_Lam22TeVDesLR":0.7283,#*100,
+"CITo2Mu_Lam22TeVDesRR":0.3629,#*100,
 }
 
 	
@@ -88,6 +81,7 @@ class Signals:
 	#	subprocesses = ["SUSY_Simplified_Model_Madgraph_FastSim_T6bblledge_225_150_80_8TeV"]
 	#	label 		 = "m_{#tilde{b}} = 225 GeV m_{#tilde{#chi_{0}^{2}}} = 150 GeV"
 	#	fillcolor    = ROOT.kWhite
+	#	fillstyle = 3315
 	#	linecolor    = ROOT.kRed-7
 	#	uncertainty	 = 0.
 	#	scaleFac     = 1.
@@ -96,6 +90,7 @@ class Signals:
 		subprocesses = ["CITo2Mu_Lam22TeVConLL"]
 		label = "CI #rightarrow #mu^{+}#mu^{-} #Lambda 22 TeV - Con LL"
 		fillcolor = ROOT.kWhite
+		fillstyle = 0
 		linecolor = ROOT.kAzure+1
 		uncertainty = 0.0
 		scaleFac     = 1.	
@@ -104,6 +99,7 @@ class Signals:
 		subprocesses = ["CITo2Mu_Lam22TeVConLR"]
 		label = "CI #rightarrow #mu^{+}#mu^{-} #Lambda 22 TeV - Con LR"
 		fillcolor = ROOT.kWhite
+		fillstyle = 0
 		linecolor = ROOT.kRed-4
 		uncertainty = 0.0
 		scaleFac     = 1.	
@@ -112,6 +108,7 @@ class Signals:
 		subprocesses = ["CITo2Mu_Lam22TeVConRR"]
 		label = "CI #rightarrow #mu^{+}#mu^{-} #Lambda 22 TeV - Con RR"
 		fillcolor = ROOT.kWhite
+		fillstyle = 0
 		linecolor = ROOT.kYellow
 		uncertainty = 0.0
 		scaleFac     = 1.	
@@ -120,6 +117,7 @@ class Signals:
 		subprocesses = ["CITo2Mu_Lam22TeVDesLL"]
 		label = "CI #rightarrow #mu^{+}#mu^{-} #Lambda 22 TeV - Des LL"
 		fillcolor = ROOT.kWhite
+		fillstyle = 0
 		linecolor = ROOT.kBlue+1
 		uncertainty = 0.0
 		scaleFac     = 1.	
@@ -128,6 +126,7 @@ class Signals:
 		subprocesses = ["CITo2Mu_Lam22TeVDesLR"]
 		label = "CI #rightarrow #mu^{+}#mu^{-} #Lambda 22 TeV - Des LR"
 		fillcolor = ROOT.kWhite
+		fillstyle = 0
 		linecolor = ROOT.kGreen+1
 		uncertainty = 0.0
 		scaleFac     = 1.	
@@ -136,6 +135,7 @@ class Signals:
 		subprocesses = ["CITo2Mu_Lam22TeVDesRR"]
 		label = "CI #rightarrow #mu^{+}#mu^{-} #Lambda 22 TeV - Des RR"
 		fillcolor = ROOT.kWhite
+		fillstyle = 0
 		linecolor = ROOT.kMagenta+1
 		uncertainty = 0.0
 		scaleFac     = 1.	
@@ -152,7 +152,8 @@ class Backgrounds:
 		subprocesses = ["dy50to120","dy120to200","dy200to400","dy400to800","dy800to1400","dy1400to2300","dy2300to3500","dy3500to4500","dy4500to6000"]
 		label = "#gamma/Z #rightarrow #mu^{+}#mu^{-}"
 		fillcolor = ROOT.kAzure+1
-		linecolor = ROOT.kBlack	
+		fillstyle = 1001#3315
+		linecolor = ROOT.kAzure+1 #ROOT.kBlack	
 		uncertainty = 0.04
 		scaleFac     = 1.	
 		additionalSelection = None
@@ -160,7 +161,8 @@ class Backgrounds:
 		subprocesses = ["ttbar_lep50to500","ttbar_lep_500to800","ttbar_lep_800to1200","ttbar_lep_1200to1800","ttbar_lep1800toInf","tW","Wantitop","WZ_ext","ZZ_ext","WWinclusive","WW200to600","WW600to1200","WW1200to2500","WW2500"]
 		label = "t#bar{t} + other prompt leptons"
 		fillcolor = ROOT.kRed-4
-		linecolor = ROOT.kBlack	
+		fillstyle = 1001#3345
+		linecolor = ROOT.kRed-4 #ROOT.kBlack	
 		uncertainty = 0.04
 		scaleFac     = 1.	
 		additionalSelection = None
@@ -168,7 +170,8 @@ class Backgrounds:
 		subprocesses = ["Wjets","qcd80to120","qcd120to170","qcd170to300","qcd300to470","qcd470to600","qcd600to800","qcd800to1000","qcd1000to1400","qcd1400to1800","qcd1800to2400","qcd2400to3200","qcd2400to3200","qcd3200"]
 		label = "non-prompt leptons"
 		fillcolor = ROOT.kYellow
-		linecolor = ROOT.kBlack	
+		fillstyle = 1001#3385
+		linecolor = ROOT.kYellow #ROOT.kBlack	
 		uncertainty = 0.04
 		scaleFac     = 1.	
 		additionalSelection = None
@@ -273,6 +276,8 @@ class plots:
         #massPlot3 = Plot("DileptonEta","DileptonEta",xLabel="dilepton eta []",log=True,xRange=[-5,5],rebin=1,yLabel="Events")
 
 
-	## SS plots
-	etaPlot = Plot("DileptonEta","SSDileptonEta",xLabel="dilepton eta []",log=False,xRange=[-5,5],rebin=1,yLabel="Events")
-	massPlot = Plot("DimuonMassVertexConstrained","SSDimuonMass",xLabel="dimuon mass [GeV]",log=False,xRange=[0,3000],rebin=50,yLabel="Events")
+	## CI plots
+	etaPlot = Plot("DileptonEta","CIDileptonEta",xLabel="dilepton eta []",log=True,xRange=[-5,5],rebin=1,yLabel="Events")
+	massPlot = Plot("DimuonMassVertexConstrained","CIDimuonMass",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],rebin=50,yLabel="Events/50 GeV")
+	massCSPosPlot = Plot("DileptonMass_CSPos","CIDileptonMassCSPos",xLabel="dilepton mass for positive cos theta star[GeV]",log=True,xRange=[0,3000],rebin=50,yLabel="Events/50 GeV")
+	massCSNegPlot = Plot("DileptonMass_CSNeg","CIDileptonMassCSNeg",xLabel="dilepton mass for negative cos theta star[GeV]",log=True,xRange=[0,3000],rebin=50,yLabel="Events/50 GeV")

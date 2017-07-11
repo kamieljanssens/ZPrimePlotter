@@ -7,7 +7,7 @@ import ratios
 from setTDRStyle import setTDRStyle
 gROOT.SetBatch(True)
 from helpers import *
-from defs import getPlot, Backgrounds
+from defs import getPlot, Backgrounds, Signals
 import math
 import os
 
@@ -36,8 +36,8 @@ def plotDataMC(args,plot):
 	colors = createMyColors()		
 
 
-	eventCounts = totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/files/mc/CI")	
-	mcFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/files/mc/CI")
+	eventCounts = totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/files/mc/")	
+	mcFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/files/mc/")
 	dataFile = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/files/")
 	print eventCounts
 	
@@ -85,20 +85,11 @@ def plotDataMC(args,plot):
 		legend.AddEntry(legendHistData,"Data","pe")	
 		#legendEta.AddEntry(legendHistData,"Data","pe")	
 
-#new own addition (test)	
-	for signal in reversed(signals):
-		temphist = ROOT.TH1F()
-		temphist.SetFillColor(signal.theColor)
-		temphist.SetLineColor(signal.theLineColor)
-		legendHists.append(temphist.Clone)
-		legend.AddEntry(temphist,signal.label,"f")
-		#legendEta.AddEntry(temphist,signal.label,"f")
-
-
 
 	for process in reversed(processes):
 		temphist = ROOT.TH1F()
 		temphist.SetFillColor(process.theColor)
+		temphist.SetFillStyle(process.theStyle)
 		temphist.SetLineColor(process.theLineColor)
 		legendHists.append(temphist.Clone)
 		legend.AddEntry(temphist,process.label,"f")
@@ -115,6 +106,7 @@ def plotDataMC(args,plot):
 			processesWithSignal.append(Signal)
 			temphist = ROOT.TH1F()
 			temphist.SetFillColor(Signal.theColor)
+			temphist.SetFillStyle(process.theStyle)
 			temphist.SetLineColor(Signal.theLineColor)
 			legendHists.append(temphist.Clone)		
 			legend.AddEntry(temphist,Signal.label,"l")
@@ -180,9 +172,9 @@ def plotDataMC(args,plot):
 	print yMax, yMin, xMax, xMin
 	if plot.yMax == None:
 		if logScale:
-			yMax = yMax*1500
+			yMax = yMax*1000
 		else:
-			yMax = yMax*3
+			yMax = yMax*1.5
 	
 	else: yMax = plot.yMax
 	print plot.xMin, plot.xMax
@@ -204,7 +196,7 @@ def plotDataMC(args,plot):
 		signalhists = []
 		for Signal in signals:
 			
-			signalhist = Signal.loadHistogram(lumi,files,plot)
+			signalhist = Signal.loadHistogram(lumi,mcFiles,plot)
 			signalhist.SetLineWidth(2)
 	#		signalhist.Add(stack.theHistogram)
 			signalhist.SetMinimum(0.1)
@@ -257,10 +249,10 @@ def plotDataMC(args,plot):
 	if args.ratio:
 
 		ratioPad.RedrawAxis()
-	if not os.path.exists("plotsSS"):
-		os.makedirs("plotsSS")	
+	if not os.path.exists("plotsCI"):
+		os.makedirs("plotsCI")	
 	print plot.fileName
-	hCanvas.Print("plotsSS/"+plot.fileName+".png")
+	hCanvas.Print("plotsCI/"+plot.fileName+".png")
 
 					
 if __name__ == "__main__":
@@ -288,7 +280,7 @@ if __name__ == "__main__":
 
 	args = parser.parse_args()
 	if len(args.backgrounds) == 0:
-		args.backgrounds = []
+		args.backgrounds = ["DrellYan","OtherPrompt","NonPrompt"]
 
 	#if len(args.signals) == 0:
 	#	args.signals = ["SimplifiedModel_mB_225_mn2_150_mn1_80","CITo2Mu_Lam22TeVConLL"]
@@ -300,8 +292,8 @@ if __name__ == "__main__":
 	        ## Normal plots
  	        #args.plot = ["massPlot","massPlot2","massPlot3"]
 		
-		## SS plots
-		args.plot = ["etaPlot","massPlot"]
+		## CI plots
+		args.plot = ["etaPlot","massPlot","massCSPosPlot","massCSNegPlot"]
 		
 	for plot in args.plot:
 		plotObject = getPlot(plot)
