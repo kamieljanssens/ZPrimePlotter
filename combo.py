@@ -2,7 +2,7 @@ import argparse
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
-from ROOT import TCanvas, TPad, TH1F, TH1I, THStack, TLegend, TMath, gROOT
+from ROOT import TCanvas, TPad, TH1F, TH1I, THStack, TLegend, TMath, gROOT, TPDF
 import ratios
 from setTDRStyle import setTDRStyle
 gROOT.SetBatch(True)
@@ -33,12 +33,46 @@ def plotDataMC(args,plot):
 		plotPad.Draw()	
 		plotPad.cd()	
 		
-	colors = createMyColors()		
+	colors = createMyColors()	
+
+	file = open("Test.tex","w")
+	file.write("\\documentclass[12pt,a4paper]{report}\n")
+	file.write("\\begin{document}\n")
+	file.write("\\LARGE CMS\\\\ \n")
+	file.write("\\Large Private Work \\\\ \n")
+	file.write("\\normalsize \n")
+	file.write("Lumi=36.5 $fb^{-1}$\\\\ \n")	
+	file.write("$\\sqrt{s}=13$ TeV\\\\ \n")
+	file.write("\\vspace{1.5mm} \\\\ \n")
+	file.write("Values: \\\\ \n")
+	
 
 
 	eventCounts = totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/")	
 	mcFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/")
 	dataFile = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/")
+
+	rootFileS=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_CITo2Mu_Lam22TeVConLL.root","DimuonMassVertexConstrained",50) # the 50 is rebin, check if you just can use rebin as variable
+	rootFileDY=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy50to120.root","DimuonMassVertexConstrained",50)
+	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy120to200.root","DimuonMassVertexConstrained",50))
+	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy200to400.root","DimuonMassVertexConstrained",50))
+	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy400to800.root","DimuonMassVertexConstrained",50))
+	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy800to1400.root","DimuonMassVertexConstrained",50))
+	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy1400to2300.root","DimuonMassVertexConstrained",50))
+	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy2300to3500.root","DimuonMassVertexConstrained",50))
+	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy3500to4500.root","DimuonMassVertexConstrained",50))
+	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy4500to6000.root","DimuonMassVertexConstrained",50))
+
+	a = rootFileS.GetSize()/2;
+	b = rootFileS.GetSize();
+	a1 = 0;
+	b2=0;
+	scaleS = rootFileS.Integral(a, b);
+	scaleB = rootFileDY.Integral(a, b);
+	#scaleR = scaleS / (sqrt(scaleS + scaleB));
+	file.write("Het totaal aantal signaal events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleS,a,b))	
+	file.write("Het totaal aantal DY events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleB,a,b))	
+	#file.write("Het totaal aantal ratio events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleR,a,b))	
 	print eventCounts
 	
 	
@@ -62,7 +96,7 @@ def plotDataMC(args,plot):
 	#legendEta.SetBorderSize(0)
 	#legendEta.SetTextFont(42)
 
-
+	
 
 	latex = ROOT.TLatex()
 	latex.SetTextFont(42)
@@ -79,6 +113,7 @@ def plotDataMC(args,plot):
 	latexCMSExtra.SetNDC(True)	
 	legendHists = []
 	
+
 
 	legendHistData = ROOT.TH1F()
 	if args.data:	
@@ -253,6 +288,9 @@ def plotDataMC(args,plot):
 		os.makedirs("NplotsCI")	
 	print plot.fileName
 	hCanvas.Print("NplotsCI/"+plot.fileName+".png")
+
+	file.write("\end{document}\n")
+	file.close()	
 
 					
 if __name__ == "__main__":
