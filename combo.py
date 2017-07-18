@@ -6,8 +6,8 @@ from ROOT import TCanvas, TPad, TH1F, TH1I, THStack, TLegend, TMath, gROOT, TPDF
 import ratios
 from setTDRStyle import setTDRStyle
 gROOT.SetBatch(True)
-from helpers import *
-from defs import getPlot, Backgrounds, Signals
+from helpersC import *
+from defsC import getPlot, Backgrounds, Signals
 import math
 import os
 
@@ -37,14 +37,25 @@ def plotDataMC(args,plot):
 
 	file = open("Test.tex","w")
 	file.write("\\documentclass[12pt,a4paper]{report}\n")
+	file.write("\\usepackage[margin=1.1 cm]{geometry} \n")
 	file.write("\\begin{document}\n")
+	file.write("\\begin{center} \n")
 	file.write("\\LARGE CMS\\\\ \n")
 	file.write("\\Large Private Work \\\\ \n")
 	file.write("\\normalsize \n")
 	file.write("Lumi=36.5 $fb^{-1}$\\\\ \n")	
 	file.write("$\\sqrt{s}=13$ TeV\\\\ \n")
-	file.write("\\vspace{1.5mm} \\\\ \n")
+	file.write("\\end{center} \n")
+	file.write("\\vspace{1.5mm}  \n")
 	file.write("Values: \\\\ \n")
+	file.write("\\begin{table}[H] \n")
+	file.write("\\centering \n")
+	file.write("\\begin{tabular}{|l|l|l|l|l|} \n")
+	file.write("\\hline \n")
+	file.write(" LL & UL & Variable & Sample & Events \\\\ \n")
+	file.write(" \\hline \\hline \n")
+	
+	
 	
 
 
@@ -52,27 +63,29 @@ def plotDataMC(args,plot):
 	mcFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/")
 	dataFile = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/")
 
-	rootFileS=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_CITo2Mu_Lam22TeVConLL.root","DimuonMassVertexConstrained",50) # the 50 is rebin, check if you just can use rebin as variable
-	rootFileDY=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy50to120.root","DimuonMassVertexConstrained",50)
-	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy120to200.root","DimuonMassVertexConstrained",50))
-	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy200to400.root","DimuonMassVertexConstrained",50))
-	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy400to800.root","DimuonMassVertexConstrained",50))
-	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy800to1400.root","DimuonMassVertexConstrained",50))
-	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy1400to2300.root","DimuonMassVertexConstrained",50))
-	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy2300to3500.root","DimuonMassVertexConstrained",50))
-	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy3500to4500.root","DimuonMassVertexConstrained",50))
-	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy4500to6000.root","DimuonMassVertexConstrained",50))
+#	rootFileS=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_CITo2Mu_Lam22TeVConLL.root","DimuonMassVertexConstrained",50) # the 50 is rebin, check if you just can use rebin as variable
+#	rootFileDY=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy50to120.root","DimuonMassVertexConstrained",50)
+#	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy120to200.root","DimuonMassVertexConstrained",50))
+#	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy200to400.root","DimuonMassVertexConstrained",50))
+#	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy400to800.root","DimuonMassVertexConstrained",50))
+#	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy800to1400.root","DimuonMassVertexConstrained",50))
+#	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy1400to2300.root","DimuonMassVertexConstrained",50))
+#	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy2300to3500.root","DimuonMassVertexConstrained",50))
+#	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy3500to4500.root","DimuonMassVertexConstrained",50))
+#	rootFileDY.Add(loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/ana_datamc_dy4500to6000.root","DimuonMassVertexConstrained",50))
+#
+#	a = 0;
+#	b = rootFileS.GetSize();
+#	a1 = 0;
+#	b2=0;
+#	scaleS = rootFileS.Integral(a, b);
+#	scaleB = rootFileDY.Integral(a, b);
+#	#scaleR = scaleS / (sqrt(scaleS + scaleB));
+#	file.write("Het totaal aantal signaal events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleS,a,b))	
+#	file.write("Het totaal aantal DY events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleB,a,b))	
+#	#file.write("Het totaal aantal ratio events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleR,a,b))	
 
-	a = rootFileS.GetSize()/2;
-	b = rootFileS.GetSize();
-	a1 = 0;
-	b2=0;
-	scaleS = rootFileS.Integral(a, b);
-	scaleB = rootFileDY.Integral(a, b);
-	#scaleR = scaleS / (sqrt(scaleS + scaleB));
-	file.write("Het totaal aantal signaal events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleS,a,b))	
-	file.write("Het totaal aantal DY events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleB,a,b))	
-	#file.write("Het totaal aantal ratio events is: %f waarbij de grenzen zijn: LL(lower limit): %d en UL %d \\\\ \n" %(scaleR,a,b))	
+
 	print eventCounts
 	
 	
@@ -192,7 +205,7 @@ def plotDataMC(args,plot):
 	print datahist.GetEntries()
 	lumi = 36400
 	print "-----"
-	stack = TheStack(processes,lumi,plot,mcFiles)
+	stack = TheStack(processes,lumi,plot,mcFiles,file)
 
 	if args.data:
 		yMax = datahist.GetBinContent(datahist.GetMaximumBin())
@@ -231,7 +244,7 @@ def plotDataMC(args,plot):
 		signalhists = []
 		for Signal in signals:
 			
-			signalhist = Signal.loadHistogram(lumi,mcFiles,plot)
+			signalhist = Signal.loadHistogram(lumi,mcFiles,plot,file)
 			signalhist.SetLineWidth(2)
 	#		signalhist.Add(stack.theHistogram)
 			signalhist.SetMinimum(0.1)
@@ -289,6 +302,11 @@ def plotDataMC(args,plot):
 	print plot.fileName
 	hCanvas.Print("NplotsCI/"+plot.fileName+".png")
 
+	file.write("\\end{tabular} \n")
+	file.write("\\caption{The integrated number of events between LL(lower limit) and UL (upper limit).} \n")
+	file.write("\\label{tab:data} \n")
+	file.write("\\end{table}  \n")
+
 	file.write("\end{document}\n")
 	file.close()	
 
@@ -318,7 +336,7 @@ if __name__ == "__main__":
 
 	args = parser.parse_args()
 	if len(args.backgrounds) == 0:
-		args.backgrounds = ["DrellYan","OtherPrompt","NonPrompt"]
+		args.backgrounds = ["All"]
 
 	#if len(args.signals) == 0:
 	#	args.signals = ["SimplifiedModel_mB_225_mn2_150_mn1_80","CITo2Mu_Lam22TeVConLL"]
@@ -331,7 +349,7 @@ if __name__ == "__main__":
  	        #args.plot = ["massPlot","massPlot2","massPlot3"]
 		
 		## CI plots
-		args.plot = ["dietaPlot","massPlot","massCSPosPlot","massCSNegPlot","etaPlot"]
+		args.plot = ['massPlot']#["dietaPlot","massPlot","massCSPosPlot","massCSNegPlot","etaPlot"]
 		
 	for plot in args.plot:
 		plotObject = getPlot(plot)
