@@ -334,28 +334,53 @@ def plotDataMC(args,plot):
 			scaleS2=scaleS2-scaleDY2
 			
 			if (scaleS1+scaleB1) > 0:
+				if x is 0:
+					x1=[]
+					ScaleR1=[]				
+
 				scaleR1=scaleS1/sqrt(scaleS1+scaleB1)
 				ScaleR1.append(scaleR1)
-				x1.append(a1)
+				x1.append(B1)
 				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A1,B1,plot.histName,SignalName[index],scaleR1))
 			
 			if (scaleS2+scaleB2) > 0:
+				if x is 0:
+					x2=[]
+					ScaleR2=[]				
+
+
 				scaleR2=scaleS2/sqrt(scaleS2+scaleB2)
 				ScaleR2.append(scaleR2)
-				x2.append(a2)
+				x2.append(A2)
 				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A2,B2,plot.histName,SignalName[index],scaleR2))
 			
-			Title1="%s %s downwards cut" %(plot.histName,SignalName[index])
-			c1 = TCanvas("c1",Title1,800,800) 
-   			graph1 = TGraph(len(x1),array('d',x1),array('f',ScaleR1))
-			graph1.Draw()
-			c1.Print("%s_%s"+"DO.png")%(plot.histName,SignalName[index])
+		 
+		if not os.path.exists("RatioPlotsCI"):
+			os.makedirs("RatioPlotsCI")	
 
-			Title2="%s %s upwards cut" %(plot.histName,SignalName[index])
-			c2 = TCanvas("c2",Title2,800,800) %(plot.histName,SignalName[index])
-   			graph2 = TGraph(len(x2),array('d',x2),array('f',ScaleR2))
-			graph2.Draw()
-			c2.Print("%s_%s"+"UP.png")%(plot.histName,SignalName[index])
+		Title1="%s %s downwards cut" %(plot.histName,SignalName[index])
+		c1 = TCanvas("c1",Title1,800,800) 
+   		graph1 = TGraph(len(x1))
+		for i in range(len(x1)):
+			graph1.SetPoint(i,x1[i],ScaleR1[i])
+		graph1.Draw()
+		s1="%s"%(plot.histName)
+		s2="%s"	%(SignalName[index])
+		s3="DO.png"
+		fName1="RatioPlotsCI/"+s1+s2+s3 
+		c1.Print(fName1)
+
+		Title2="%s %s upwards cut" %(plot.histName,SignalName[index])
+		c2 = TCanvas("c2",Title2,800,800)
+   		graph2 = TGraph(len(x2))
+		for i in range(len(x2)):
+			graph2.SetPoint(i,x2[i],ScaleR2[i])
+		graph2.Draw()
+		s1="%s"%(plot.histName)
+		s2="%s"	%(SignalName[index])
+		s3="UP.png"
+		fName2="RatioPlotsCI/"+s1+s2+s3 
+		c2.Print(fName2)
 
 			
 #			if scaleB1 is not 0:		
@@ -416,7 +441,7 @@ if __name__ == "__main__":
  	        #args.plot = ["massPlot","massPlot2","massPlot3"]
 		
 		## CI plots
-		args.plot = ['massPlot']#["dietaPlot","massPlot","massCSPosPlot","massCSNegPlot","etaPlot"]
+		args.plot = ["dietaPlot","massPlot","massCSPosPlot","massCSNegPlot","etaPlot"]#["massPlot"]
 		
 	for plot in args.plot:
 		plotObject = getPlot(plot)
