@@ -2,7 +2,7 @@ import argparse
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
-from ROOT import TCanvas, TPad, TH1F, TH1I, THStack, TLegend, TMath, gROOT, TPDF
+from ROOT import TCanvas, TPad, TH1F, TH1I, THStack, TLegend, TMath, gROOT, TPDF, TGraph
 import ratios
 from setTDRStyle import setTDRStyle
 gROOT.SetBatch(True)
@@ -10,6 +10,7 @@ from helpers import *
 from defs import getPlot, Backgrounds, Signals
 import math
 import os
+from array import array
 
 
 
@@ -289,11 +290,15 @@ def plotDataMC(args,plot):
 	
 	##DY to subract from signal
 
-	SignDY=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/ana_datamc_DYTo2Mu_M300",plot.histName,plot.rebin)
+	SignDY=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/ana_datamc_DYTo2Mu_M300.root",plot.histName,plot.rebin)
 
 	##Signals
 
 	SignalName=["conLL","conLR","conRR","desLL","desLR","desRR"]
+	x1=[]
+	x2=[]
+	ScaleR1=[]
+	ScaleR2=[]
 
 	for index, signal in enumerate(signals):
      		histo = signalhists[index]
@@ -323,18 +328,34 @@ def plotDataMC(args,plot):
 					
 			scaleS1 = histo.Integral(a1, b1)
 			scaleS2 = histo.Integral(a2, b2)
-			#scaleDY1=SignDY.Integral(a1, b1)
-			#scaleDY2=SignDY.Integral(a2, b2)
-			#scaleS1=scaleS1-scaleDY1
-			#scaleS2=scaleS2-scaleDY2
+			scaleDY1=SignDY.Integral(a1, b1)
+			scaleDY2=SignDY.Integral(a2, b2)
+			scaleS1=scaleS1-scaleDY1
+			scaleS2=scaleS2-scaleDY2
 			
 			if (scaleS1+scaleB1) > 0:
 				scaleR1=scaleS1/sqrt(scaleS1+scaleB1)
+				ScaleR1.append(scaleR1)
+				x1.append(a1)
 				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A1,B1,plot.histName,SignalName[index],scaleR1))
 			
 			if (scaleS2+scaleB2) > 0:
 				scaleR2=scaleS2/sqrt(scaleS2+scaleB2)
+				ScaleR2.append(scaleR2)
+				x2.append(a2)
 				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A2,B2,plot.histName,SignalName[index],scaleR2))
+			
+			Title1="%s %s downwards cut" %(plot.histName,SignalName[index])
+			c1 = TCanvas("c1",Title1,800,800) 
+   			graph1 = TGraph(len(x1),array('d',x1),array('f',ScaleR1))
+			graph1.Draw()
+			c1.Print("%s_%s"+"DO.png")%(plot.histName,SignalName[index])
+
+			Title2="%s %s upwards cut" %(plot.histName,SignalName[index])
+			c2 = TCanvas("c2",Title2,800,800) %(plot.histName,SignalName[index])
+   			graph2 = TGraph(len(x2),array('d',x2),array('f',ScaleR2))
+			graph2.Draw()
+			c2.Print("%s_%s"+"UP.png")%(plot.histName,SignalName[index])
 
 			
 #			if scaleB1 is not 0:		
