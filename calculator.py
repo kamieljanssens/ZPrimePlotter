@@ -38,6 +38,7 @@ def plotDataMC(args,plot):
 	file = open("Test.tex","w")
 	file.write("\\documentclass[12pt,a4paper]{report}\n")
 	file.write("\\usepackage[margin=1.1 cm]{geometry} \n")
+	file.write("\\usepackage{longtable} \n")
 	file.write("\\begin{document}\n")
 	file.write("\\begin{center} \n")
 	file.write("\\LARGE CMS\\\\ \n")
@@ -48,9 +49,7 @@ def plotDataMC(args,plot):
 	file.write("\\end{center} \n")
 	file.write("\\vspace{1.5mm}  \n")
 	file.write("Values: \\\\ \n")
-	file.write("\\begin{table}[H] \n")
-	file.write("\\centering \n")
-	file.write("\\begin{tabular}{|l|l|l|l|l|} \n")
+	file.write("\\begin{longtable}{|l|l|l|l|l|} \n")
 	file.write("\\hline \n")
 	file.write(" LL & UL & Variable & Sample & Events \\\\ \n")
 	file.write(" \\hline \\hline \n")
@@ -60,111 +59,7 @@ def plotDataMC(args,plot):
 	mcFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/")
 	dataFile = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/")
 	
-	##
-	## Calculation of integrals en ratios
-	##
 
-	scaleB1=0
-	scaleS1=0
-	scaleB2=0
-	scaleS2=0
-	
-	## Background processes:
-
-	Back=loadHistoFromFile(mcfiles+"ana_datamc_dy50to120.root",plot.histName,plot.rebin)
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_dy120to200.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_dy200to400.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_dy400to800.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_dy800to1400.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_dy1400to2300.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_dy2300to3500.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_dy3500to4500.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_dy4500to6000.root",plot.histName,plot.rebin))
-
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_ttbar_lep50to500.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_ttbar_lep_500to800.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_ttbar_lep_800to1200.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_ttbar_lep_1200to1800.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_ttbar_lep1800toInf.root",plot.histName,plot.rebin))
-
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_tW.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_Wantitop.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_WZ_ext.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_ZZ_ext.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_WWinclusive.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_WW200to600.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_WW600to1200.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_WW1200to2500.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_WW2500.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_Wjets.root",plot.histName,plot.rebin))
-
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd80to120.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd120to170.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd170to300.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd300to470.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd470to600.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd600to800.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd800to1000.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd1000to1400.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd1400to1800.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd1800to2400.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd2400to3200.root",plot.histName,plot.rebin))
-	Back.Add(loadHistoFromFile(mcfiles+"ana_datamc_qcd3200.root",plot.histName,plot.rebin))
-	
-	##Signals
-
-	Sign=loadHistoFromFile(mcfiles+"ana_datamc_CITo2Mu_Lam22TeVConLL",plot.histName,plot.rebin)
-	Sign.Add(loadHistoFromFile(mcfiles+"ana_datamc_CITo2Mu_Lam22TeVConLR",plot.histName,plot.rebin))
-	Sign.Add(loadHistoFromFile(mcfiles+"ana_datamc_CITo2Mu_Lam22TeVConRR",plot.histName,plot.rebin))
-	Sign.Add(loadHistoFromFile(mcfiles+"ana_datamc_CITo2Mu_Lam22TeVDesLL",plot.histName,plot.rebin))
-	Sign.Add(loadHistoFromFile(mcfiles+"ana_datamc_CITo2Mu_Lam22TeVDesLR",plot.histName,plot.rebin))
-	Sign.Add(loadHistoFromFile(mcfiles+"ana_datamc_CITo2Mu_Lam22TeVDesRR",plot.histName,plot.rebin))
-
-	##DY to subract from signal
-
-	SignDY=loadHistoFromFile(DataFile+"ana_datamc_DYTo2Mu_M300",plot.histName,plot.rebin)
-
-	## Integrating
-
-	a = 0;
-	b = Back.GetSize()	
-	da = Back.GetXaxis().GetBinWidth(a)
-	db = Back.GetXaxis().GetBinWidth(b)
-	offset= Back.GetXaxis().GetXmin()	
-
-	for x in range (0,b-1):
-		a1=a
-		b1=b-x
-		a2=a+x
-		b2=b
-
-		A1= a1*da+offset
-		B1= b1*db+offset
-		A2= a2*da+offset
-		B2= b2*db+offset				
-
-
-		scaleB1 = Back.Integral(a1, b1)
-		scaleB2 = Back.Integral(a2, b2)
-				
-		scaleS1 = Sign.Integral(a1, b1)
-		scaleS2 = Sign.Integral(a2, b2)
-		scaleDY1=SignDY.Integral(a1, b1)
-		scaleDY2=SignDY.Integral(a2, b2)
-		scaleS1=scaleS1-scaleDY1
-		scaleS2=scaleS2-scaleDY2
-
-			
-		if scaleB1 is not 0:		
-			texfile.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A1,B1,plot.histName,"Background",scaleB1))
-		if scaleB2 is not 0:			
-			texfile.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A2,B2,plot.histName,"Background",scaleB2))
-		if scaleS1 is not 0:	
-			texfile.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A1,B1,plot.histName,tempSample,scaleS1))
-		if scaleS2 is not 0:	
-			texfile.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A2,B2,plot.histName,tempSample,scaleS2))
-						
-	
 	print eventCounts
 	
 	
@@ -284,7 +179,7 @@ def plotDataMC(args,plot):
 	print datahist.GetEntries()
 	lumi = 36400
 	print "-----"
-	stack = TheStack(processes,lumi,plot,mcFiles,file)
+	stack = TheStack(processes,lumi,plot,mcFiles)
 
 	if args.data:
 		yMax = datahist.GetBinContent(datahist.GetMaximumBin())
@@ -321,9 +216,10 @@ def plotDataMC(args,plot):
 
 	if len(args.signals) != 0:
 		signalhists = []
+		SignalName = []
 		for Signal in signals:
 			
-			signalhist = Signal.loadHistogram(lumi,mcFiles,plot,file)
+			signalhist = Signal.loadHistogram(lumi,mcFiles,plot)
 			signalhist.SetLineWidth(2)
 	#		signalhist.Add(stack.theHistogram)
 			signalhist.SetMinimum(0.1)
@@ -381,13 +277,84 @@ def plotDataMC(args,plot):
 	print plot.fileName
 	hCanvas.Print("NplotsCI/"+plot.fileName+".png")
 
-	file.write("\\end{tabular} \n")
+
+
+	##
+	## Calculation of integrals en ratios
+	##
+
+	## Background processes:
+
+	Back=stack.theHistogram
+	
+	##DY to subract from signal
+
+	SignDY=loadHistoFromFile("/afs/cern.ch/work/j/jschulte/public/filesM300/ana_datamc_DYTo2Mu_M300",plot.histName,plot.rebin)
+
+	##Signals
+
+	SignalName=["conLL","conLR","conRR","desLL","desLR","desRR"]
+
+	for index, signal in enumerate(signals):
+     		histo = signalhists[index]
+
+		## Integrating
+
+		a = 0;
+		b = Back.GetSize()	
+		da = Back.GetXaxis().GetBinWidth(a)
+		db = Back.GetXaxis().GetBinWidth(b)
+		offset= Back.GetXaxis().GetXmin()	
+
+		for x in range (0,b-2):
+			a1=a
+			b1=b-x
+			a2=a+x
+			b2=b
+
+			A1= a1*da+offset
+			B1= b1*db+offset
+			A2= a2*da+offset
+			B2= b2*db+offset				
+
+
+			scaleB1 = Back.Integral(a1, b1)
+			scaleB2 = Back.Integral(a2, b2)
+					
+			scaleS1 = histo.Integral(a1, b1)
+			scaleS2 = histo.Integral(a2, b2)
+			#scaleDY1=SignDY.Integral(a1, b1)
+			#scaleDY2=SignDY.Integral(a2, b2)
+			#scaleS1=scaleS1-scaleDY1
+			#scaleS2=scaleS2-scaleDY2
+			
+			if (scaleS1+scaleB1) > 0:
+				scaleR1=scaleS1/sqrt(scaleS1+scaleB1)
+				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A1,B1,plot.histName,SignalName[index],scaleR1))
+			
+			if (scaleS2+scaleB2) > 0:
+				scaleR2=scaleS2/sqrt(scaleS2+scaleB2)
+				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A2,B2,plot.histName,SignalName[index],scaleR2))
+
+			
+#			if scaleB1 is not 0:		
+#				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A1,B1,plot.histName,"Background",scaleB1))
+#			if scaleB2 is not 0:			
+#				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A2,B2,plot.histName,"Background",scaleB2))
+#			if scaleS1 is not 0:	
+#				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A1,B1,plot.histName,index,scaleS1))
+#			if scaleS2 is not 0:	
+#				file.write(" %d & %d & %s & %s & %f \\\\ \\hline	\n" %(A2,B2,plot.histName,index,scaleS2))
+#						
+	
+	
 	file.write("\\caption{The integrated number of events between LL(lower limit) and UL (upper limit).} \n")
 	file.write("\\label{tab:data} \n")
-	file.write("\\end{table}  \n")
+	file.write("\\end{longtable}  \n")
 
 	file.write("\end{document}\n")
 	file.close()	
+
 
 					
 if __name__ == "__main__":
@@ -395,21 +362,21 @@ if __name__ == "__main__":
 	
 	parser = argparse.ArgumentParser(description='Process some integers.')
 	
-	parser.Add_argument("-d", "--data", action="store_true", dest="data", default=False,
+	parser.add_argument("-d", "--data", action="store_true", dest="data", default=False,
 						  help="plot data points.")
-	parser.Add_argument("-m", "--mc", action="store_true", dest="mc", default=False,
+	parser.add_argument("-m", "--mc", action="store_true", dest="mc", default=False,
 						  help="plot mc backgrounds.")
-	parser.Add_argument("-p", "--plot", dest="plot", nargs=1, default="",
+	parser.add_argument("-p", "--plot", dest="plot", nargs=1, default="",
 						  help="plot to plot.")
-	parser.Add_argument("-n", "--norm", action="store_true", dest="norm", default=False,
+	parser.add_argument("-n", "--norm", action="store_true", dest="norm", default=False,
 						  help="normalize to data.")
-	parser.Add_argument("-r", "--ratio", action="store_true", dest="ratio", default=False,
+	parser.add_argument("-r", "--ratio", action="store_true", dest="ratio", default=False,
 						  help="plot ratio plot")
-	parser.Add_argument("-l", "--log", action="store_true", dest="log", default=False,
+	parser.add_argument("-l", "--log", action="store_true", dest="log", default=False,
 						  help="plot with log scale for y axis")
-	parser.Add_argument("-s", "--signal", dest="signals", action="append", default=[],
+	parser.add_argument("-s", "--signal", dest="signals", action="append", default=[],
 						  help="signals to plot.")
-	parser.Add_argument("-b", "--backgrounds", dest="backgrounds", action="append", default=[],
+	parser.add_argument("-b", "--backgrounds", dest="backgrounds", action="append", default=[],
 						  help="backgrounds to plot.")
 
 
