@@ -7,7 +7,7 @@ import ratios
 from setTDRStyle import setTDRStyle
 gROOT.SetBatch(True)
 from helpers import *
-from defs import getPlot, Backgrounds, Signals
+from defs import getPlot, Backgrounds, Signals, DYSignals
 import math
 import os
 from array import array
@@ -58,6 +58,7 @@ def plotDataMC(args,plot):
 	
 	eventCounts = totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/")	
 	mcFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/")
+	SignDYFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/mcSignDY")
 	dataFile = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/")
 	
 
@@ -72,6 +73,10 @@ def plotDataMC(args,plot):
 	signals = []
 	for signal in args.signals:
 		signals.append(Process(getattr(Signals,signal),eventCounts))
+
+	DYsignals=[]
+	for DYsignal in args.DYsignals:
+		DYsignals.append(Process(getattr(DYSignals,DYsignal),eventCounts))
 		
 	legend = TLegend(0.475, 0.65, 0.925, 0.925)
 	legend.SetFillStyle(0)
@@ -294,7 +299,7 @@ def plotDataMC(args,plot):
 
 	##Signals
 
-	SignalName=["conLL","conLR","conRR","desLL","desLR","desRR"]
+	SignalName=[]
 	x1=[]
 	x2=[]
 	ScaleR1=[]
@@ -302,7 +307,7 @@ def plotDataMC(args,plot):
 
 	for index, signal in enumerate(signals):
      		histo = signalhists[index]
-
+		SignalName.append(signal.label)
 		## Integrating
 
 		a = 0;
@@ -364,6 +369,11 @@ def plotDataMC(args,plot):
 		for i in range(len(x1)):
 			graph1.SetPoint(i,x1[i],ScaleR1[i])
 		graph1.Draw()
+		graph1.SetTitle("Upper limit boundary")
+		graph1.GetHistogram().GetXaxis().SetTitle("Cut value")
+		graph1.GetHistogram().GetYaxis().SetTitle("$$\\frac{S}{\sqrt{S+B}}$$")
+		graph1.GetHistogram().GetXaxis().SetRangeUser(800,3000)
+		graph1.Draw()
 		s1="%s"%(plot.histName)
 		s2="%s"	%(SignalName[index])
 		s3="DO.png"
@@ -375,6 +385,11 @@ def plotDataMC(args,plot):
    		graph2 = TGraph(len(x2))
 		for i in range(len(x2)):
 			graph2.SetPoint(i,x2[i],ScaleR2[i])
+		graph2.Draw()
+		graph2.SetTitle("Lower limit boundary")
+		graph2.GetHistogram().GetXaxis().SetTitle("Cut value")
+		graph2.GetHistogram().GetYaxis().SetTitle("$$\\frac{S}{\sqrt{S+B}}$$")
+		graph2.GetHistogram().GetXaxis().SetRangeUser(800,3000)
 		graph2.Draw()
 		s1="%s"%(plot.histName)
 		s2="%s"	%(SignalName[index])
@@ -424,11 +439,16 @@ if __name__ == "__main__":
 						  help="signals to plot.")
 	parser.add_argument("-b", "--backgrounds", dest="backgrounds", action="append", default=[],
 						  help="backgrounds to plot.")
+	parser.add_argument("-dy", "--drellyansign", dest="DYSignals", action="append", default=[],
+						  help="DYSignals to plot.")
 
 
 	args = parser.parse_args()
 	if len(args.backgrounds) == 0:
 		args.backgrounds = ["DrellYan","OtherPrompt","NonPrompt"]
+
+	if len(args.DYSignals) == 0:
+		args.DYSignals = ["SignDrellYan"]
 
 	#if len(args.signals) == 0:
 	#	args.signals = ["SimplifiedModel_mB_225_mn2_150_mn1_80","CITo2Mu_Lam22TeVConLL"]
@@ -441,7 +461,7 @@ if __name__ == "__main__":
  	        #args.plot = ["massPlot","massPlot2","massPlot3"]
 		
 		## CI plots
-		args.plot = ["dietaPlot","massPlot","massCSPosPlot","massCSNegPlot","etaPlot"]#["massPlot"]
+		args.plot = ["massPlot","massCSPosPlot","massCSNegPlot","massPlotBB","massCSPosPlotBB","massCSNegPlotBB","massPlotBE","massCSPosPlotBE","massCSNegPlotBE"]
 		
 	for plot in args.plot:
 		plotObject = getPlot(plot)
