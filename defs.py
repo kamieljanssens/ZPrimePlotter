@@ -146,7 +146,7 @@ class Signals:
 		
 class DYSignals:
 
-	class SignDrellYan:
+	class DYTo2Mu_M300:
 		subprocesses = ["DYTo2Mu_M300"]
 		label = "#gamma/Z #rightarrow #mu^{+}#mu^{-}"
 		fillcolor = ROOT.kAzure+1

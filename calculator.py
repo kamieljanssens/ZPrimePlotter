@@ -58,6 +58,7 @@ def plotDataMC(args,plot):
 	
 	eventCounts = totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/")	
 	mcFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/")
+	eventCountsDY=totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/mcSignDY")
 	SignDYFiles = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/mc/mcSignDY")
 	dataFile = getFilePathsAndSampleNames("/afs/cern.ch/work/j/jschulte/public/filesM300/")
 	
@@ -74,9 +75,9 @@ def plotDataMC(args,plot):
 	for signal in args.signals:
 		signals.append(Process(getattr(Signals,signal),eventCounts))
 
-	DYsignals=[]
-	for DYsignal in args.DYsignals:
-		DYsignals.append(Process(getattr(DYSignals,DYsignal),eventCounts))
+	DYSignals=[]
+	for DYSignal in args.DYSignals:
+		DYSignals.append(Process(getattr(DYSignals,DYSignal),eventCountsDY))
 		
 	legend = TLegend(0.475, 0.65, 0.925, 0.925)
 	legend.SetFillStyle(0)
@@ -448,7 +449,7 @@ if __name__ == "__main__":
 		args.backgrounds = ["DrellYan","OtherPrompt","NonPrompt"]
 
 	if len(args.DYSignals) == 0:
-		args.DYSignals = ["SignDrellYan"]
+		args.DYSignals = ["DYTo2Mu_M300"]
 
 	#if len(args.signals) == 0:
 	#	args.signals = ["SimplifiedModel_mB_225_mn2_150_mn1_80","CITo2Mu_Lam22TeVConLL"]
