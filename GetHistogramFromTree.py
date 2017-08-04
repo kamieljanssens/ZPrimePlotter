@@ -277,7 +277,7 @@ def plotDataMC(args,plot):
 	if not os.path.exists("NPlotsCI"):
 		os.makedirs("NPlotsCI")	
 	print plot.fileName
-	hCanvas.Print("NPlotsCI/"+plot.fileName+".png")
+	hCanvas.Print("NPlotsCI/"+plot.fileName+"_fromTree.png")
 
 
 
@@ -373,8 +373,8 @@ if __name__ == "__main__":
 	if len(args.backgrounds) == 0:
 		args.backgrounds = ["DrellYan"]
 
-	#if len(args.DYSignals) == 0:
-	#	args.DYSignals = ["DYTo2Mu_M300"]
+	if len(args.DYSignals) == 0:
+		args.DYSignals = ["DYTo2Mu_M300"]
 
 	#if len(args.signals) == 0:
 	#	args.signals = ["SimplifiedModel_mB_225_mn2_150_mn1_80","CITo2Mu_Lam22TeVConLL"]

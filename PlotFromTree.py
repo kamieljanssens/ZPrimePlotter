@@ -244,7 +244,7 @@ def plotDataMC(args,plot):
 	if not os.path.exists("plots"):
 		os.makedirs("plots")	
 	print plot.fileName
-	hCanvas.Print("plots/"+plot.fileName+"_fromTree.pdf")
+	hCanvas.Print("plots/"+plot.fileName+"_fromTree.png")
 
 					
 if __name__ == "__main__":
@@ -272,13 +272,13 @@ if __name__ == "__main__":
 
 	args = parser.parse_args()
 	if len(args.backgrounds) == 0:
-		args.backgrounds = ["NonPrompt","OtherPrompt","DrellYan"]
+		args.backgrounds = ["DrellYan"]
 
 	if len(args.signals) != 0:
 		args.plotSignal = True
 
 	if args.plot == "":
-		args.plot = ["massPlot"]
+		args.plot = ["massPlot","massCSPosPlot","massCSNegPlot","massPlotBB","massCSPosPlotBB","massCSNegPlotBB","massPlotBE","massCSPosPlotBE","massCSNegPlotBE","CosThetaStarPlot"]
 	
 	for plot in args.plot:
 		plotObject = getPlot(plot)

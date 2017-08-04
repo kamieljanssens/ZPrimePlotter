@@ -304,20 +304,20 @@ class plots:
 ## CI plots
 	
 	##mass plots general
-	massPlot = Plot("DimuonMassVertexConstrained","CIDiMuonMass",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass")
-	massCSPosPlot = Plot("DimuonMassVertexConstrained_CSPos","CIDiMuonMassCSPos",xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass_CSPos")
-	massCSNegPlot = Plot("DimuonMassVertexConstrained_CSNeg","CIDiMuonMassCSNeg",xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass_CSNeg")
+	massPlot = Plot("DimuonMassVertexConstrained","CIDiMuonMass",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/10 GeV", cuts = "", variable = "dil_mass")
+	massCSPosPlot = Plot("DimuonMassVertexConstrained_CSPos","CIDiMuonMassCSPos",xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "cos_cs > 0", variable = "dil_mass")
+	massCSNegPlot = Plot("DimuonMassVertexConstrained_CSNeg","CIDiMuonMassCSNeg",xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "cos_cs < 0", variable = "dil_mass")
               
 	##mass plot bb
-	massPlotBB = Plot("DimuonMassVertexConstrained_bb","CIDiMuonMass_bb",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass_bb")
-	massCSPosPlotBB = Plot("DimuonMassVertexConstrained_bb_CSPos","CIDiMuonMassCSPos_bb",xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass_CSPos_bb")
-	massCSNegPlotBB = Plot("DimuonMassVertexConstrained_bb_CSNeg","CIDiMuonMassCSNeg_bb",xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass_CSNeg_bb")
+	massPlotBB = Plot("DimuonMassVertexConstrained_bb","CIDiMuonMass_bb",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "abs(dil_eta[0])<1.2 && abs(dil_eta[1])<1.2", variable = "dil_mass")
+	massCSPosPlotBB = Plot("DimuonMassVertexConstrained_bb_CSPos","CIDiMuonMassCSPos_bb",xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "abs(dil_eta[0])<1.2 && abs(dil_eta[1])<1.2 && cos_cs > 0", variable = "dil_mass")
+	massCSNegPlotBB = Plot("DimuonMassVertexConstrained_bb_CSNeg","CIDiMuonMassCSNeg_bb",xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "abs(dil_eta[0])<1.2 && abs(dil_eta[1])<1.2 && cos_cs < 0", variable = "dil_mass")
               
 	##mass plot be	
-	massPlotBE = Plot("DimuonMassVertexConstrained_be","CIDiMuonMass_be",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass_be")
-	massCSPosPlotBE = Plot("DimuonMassVertexConstrained_be_CSPos","CIDiMuonMassCSPos_be",xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass_CSPos_be")
-	massCSNegPlotBE = Plot("DimuonMassVertexConstrained_be_CSNeg","CIDiMuonMassCSNeg_be",xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "", variable = "dil_mass_CSNeg_be")
+	massPlotBE = Plot("DimuonMassVertexConstrained_be","CIDiMuonMass_be",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "abs(dil_eta[0])<1.2 && abs(dil_eta[1])>1.2", variable = "dil_mass")
+	massCSPosPlotBE = Plot("DimuonMassVertexConstrained_be_CSPos","CIDiMuonMassCSPos_be",xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "abs(dil_eta[0])<1.2 && abs(dil_eta[1])>1.2 && cos_cs > 0", variable = "dil_mass")
+	massCSNegPlotBE = Plot("DimuonMassVertexConstrained_be_CSNeg","CIDiMuonMassCSNeg_be",xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "abs(dil_eta[0])<1.2 && abs(dil_eta[1])>1.2 && cos_cs < 0", variable = "dil_mass")
 
 
 	##CosTheta* plot
-	CosThetaStarPlot=Plot("CosThetaStarDilepton","CosThetaStarDilepton",xLabel="dilepton cos(theta*)[]",log=True,xRange=[-1,1],nBins = 100,rebin=10,yLabel="Events/10", cuts = "", variable = "dil_CosThetaStar")
+	CosThetaStarPlot=Plot("CosThetaStarDilepton","CosThetaStarDilepton",xLabel="dilepton cos(theta*)[]",log=True,xRange=[-1,1],nBins = 100,rebin=10,yLabel="Events/10", cuts = "", variable = "cos_cs")
