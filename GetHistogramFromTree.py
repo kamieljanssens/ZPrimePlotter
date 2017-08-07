@@ -45,7 +45,7 @@ def plotDataMC(args,plot):
 	SignDYTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/mc/")
 	dataTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/")
 
-	print eventCounts
+	#print eventCounts
 	
 	
 	processes = []
@@ -165,22 +165,22 @@ def plotDataMC(args,plot):
 		plotPad.SetLogy()
 
 	datahist = getDataHist(plot,dataTrees,fromTree=True)	
-	print datahist.GetEntries()
+	#print datahist.GetEntries()
 	lumi = 36400
-	print "-----"
+	#print "-----"
 	stack = TheStack(processes,lumi,plot,mcTrees,fromTree=True)
 
 	if args.data:
-		yMax = datahist.GetBinContent(datahist.GetMaximumBin())
+		yMax = datahist.GetBinContent(stack.theHistogram.GetMaximumBin())
 		yMin = 0.1
 		xMax = datahist.GetXaxis().GetXmax()
 		xMin = datahist.GetXaxis().GetXmin()
 	else:	
-		yMax = stack.theHistogram.GetBinContent(datahist.GetMaximumBin())
+		yMax = stack.theHistogram.GetBinContent(stack.theHistogram.GetMaximumBin())
 		yMin = 0.1
 		xMax = stack.theHistogram.GetXaxis().GetXmax()
 		xMin = stack.theHistogram.GetXaxis().GetXmin()	
-	print yMax, yMin, xMax, xMin
+	#print yMax, yMin, xMax, xMin
 	if plot.yMax == None:
 		if logScale:
 			yMax = yMax*1000
@@ -188,14 +188,14 @@ def plotDataMC(args,plot):
 			yMax = yMax*1.5
 	
 	else: yMax = plot.yMax
-	print plot.xMin, plot.xMax
+	#print plot.xMin, plot.xMax
 	if not plot.yMin == None:
 		yMin = plot.yMin
 	if not plot.xMin == None:
 		xMin = plot.xMin
 	if not plot.xMax == None:
 		xMax = plot.xMax
-	print yMax, yMin, xMax, xMin
+	#print yMax, yMin, xMax, xMin
 	plotPad.DrawFrame(xMin,yMin,xMax,yMax,"; %s ; %s" %(plot.xaxis,plot.yaxis))
 	
 	
@@ -203,6 +203,10 @@ def plotDataMC(args,plot):
  
 	drawStack = stack
 	drawStack.theStack.Draw("samehist")	
+
+	testB=stack.theHistogram
+	testtt= testB.Integral(0,testB.GetSize())
+	print testtt
 
 	if len(args.signals) != 0:
 		signalhists = []
@@ -215,6 +219,8 @@ def plotDataMC(args,plot):
 			signalhist.SetMinimum(0.1)
 			signalhist.Draw("samehist")
 			signalhists.append(signalhist)	
+			print Signal.samples, signalhist.Integral(0,signalhist.GetSize())
+
 
 	if len(args.DYSignals) != 0:
 		DYSignalhists = []
@@ -276,7 +282,7 @@ def plotDataMC(args,plot):
 		ratioPad.RedrawAxis()
 	if not os.path.exists("NPlotsCI"):
 		os.makedirs("NPlotsCI")	
-	print plot.fileName
+	#print plot.fileName
 	hCanvas.Print("NPlotsCI/"+plot.fileName+"_fromTree.png")
 
 
@@ -387,7 +393,7 @@ if __name__ == "__main__":
  	        #args.plot = ["massPlot","massPlot2","massPlot3"]
 		
 		## CI plots
-		args.plot = ["massPlot","massCSPosPlot","massCSNegPlot","massPlotBB","massCSPosPlotBB","massCSNegPlotBB","massPlotBE","massCSPosPlotBE","massCSNegPlotBE","CosThetaStarPlot"]
+		args.plot = ["massPlot","CosThetaStarPlot"]#"massPlot","massCSPosPlot","massCSNegPlot","massPlotBB","massCSPosPlotBB","massCSNegPlotBB","massPlotBE","massCSPosPlotBE","massCSNegPlotBE","CosThetaStarPlot"]
 		
 	for plot in args.plot:
 		plotObject = getPlot(plot)

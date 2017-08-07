@@ -188,12 +188,12 @@ def plotDataMC(args,plot):
 	stack = TheStack(processes,lumi,plot,mcTrees,fromTree=True)
 
 	if args.data:
-		yMax = datahist.GetBinContent(datahist.GetMaximumBin())
+		yMax = datahist.GetBinContent(stack.theHistogram.GetMaximumBin())
 		yMin = 0.1
 		xMax = datahist.GetXaxis().GetXmax()
 		xMin = datahist.GetXaxis().GetXmin()
 	else:	
-		yMax = stack.theHistogram.GetBinContent(datahist.GetMaximumBin())
+		yMax = stack.theHistogram.GetBinContent(stack.theHistogram.GetMaximumBin())
 		yMin = 0.1
 		xMax = stack.theHistogram.GetXaxis().GetXmax()
 		xMin = stack.theHistogram.GetXaxis().GetXmin()	
@@ -506,9 +506,8 @@ if __name__ == "__main__":
  	        #args.plot = ["massPlot","massPlot2","massPlot3"]
 		
 		## CI plots
-		args.plot = ["massPlot","massCSPosPlot","massCSNegPlot","massPlotBB","massCSPosPlotBB","massCSNegPlotBB","massPlotBE","massCSPosPlotBE","massCSNegPlotBE","CosThetaStarPlot"]
+		args.plot = ["CosThetaStarPlot"]#"massPlot","massCSPosPlot","massCSNegPlot","massPlotBB","massCSPosPlotBB","massCSNegPlotBB","massPlotBE","massCSPosPlotBE","massCSNegPlotBE","CosThetaStarPlot"]
 		
 	for plot in args.plot:
 		plotObject = getPlot(plot)
 		plotDataMC(args,plotObject)
-	

@@ -22,7 +22,7 @@ def totalNumberOfGeneratedEvents(path):
 	#~ print path
 
 	for sampleName, filePath in getFilePathsAndSampleNames(path).iteritems():
-			print sampleName
+		#	print sampleName
 			rootFile = TFile(filePath, "read")
 			result[sampleName] = rootFile.FindObjectAny("Events").GetBinContent(1)				
 	return result
@@ -48,7 +48,7 @@ def readTrees(path):
 	result = {}
 	for sampleName, filePath in getFilePathsAndSampleNames(path).iteritems():
 		result[sampleName] = readTreeFromFile(filePath)
-	print result	
+	#print result	
 	return result
 
 def getFilePathsAndSampleNames(path):
@@ -149,8 +149,8 @@ class Process:
 				tempHist = loadHistoFromFile(files[sample],plot.histName,plot.rebin)		
 			tempHist.Scale(lumi*self.xsecs[index]/self.nEvents[index])
 			
-			print sample
-			print lumi*self.xsecs[index]/self.nEvents[index], lumi, self.xsecs[index], self.nEvents[index]
+			#print sample
+			#print lumi*self.xsecs[index]/self.nEvents[index], lumi, self.xsecs[index], self.nEvents[index]
 			
 			
 			if self.histo == None:
