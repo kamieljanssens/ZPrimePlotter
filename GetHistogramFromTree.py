@@ -308,7 +308,7 @@ def plotDataMC(args,plot):
 
 	##Signals
 
-	binningD={"binningMass": [400,500,700,1100,1900,3500], "binningCosThetaStar": [-1,-0.8,-0.6,-0.4,-0.2,0,0.2,0.4,0.6,0.8,1]}
+	binningD={"binningMass": [300,500,700,1100,1900,3500], "binningCosThetaStar": [-1,-0.8,-0.6,-0.4,-0.2,0,0.2,0.4,0.6,0.8,1]}
 
 
 	for index, signal in enumerate(signals):
@@ -324,6 +324,10 @@ def plotDataMC(args,plot):
 
 		if "CosThetaStar" in plot.histName:
 			binning=binningD["binningCosThetaStar"]
+
+		
+
+
 
 
 
@@ -343,7 +347,7 @@ def plotDataMC(args,plot):
     			if index < len(binning)-1:
      				newHistoD.SetBinContent(index+1,HistoB.Integral(HistoB.GetXaxis().FindBin(binBoundary),HistoB.GetXaxis().FindBin(binning[index+1]))+HistoS.Integral(HistoS.GetXaxis().FindBin(binBoundary),HistoS.GetXaxis().FindBin(binning[index+1]))-HistoSDY.Integral(HistoSDY.GetXaxis().FindBin(binBoundary),HistoSDY.GetXaxis().FindBin(binning[index+1])))
 
-
+		print newHistoB.Integral(0,newHistoB.GetSize()),newHistoS.Integral(0,newHistoS.GetSize()),newHistoD.Integral(0,newHistoD.GetSize())
 	
 
 		OutputFile.Write()
