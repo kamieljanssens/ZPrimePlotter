@@ -304,7 +304,7 @@ class plots:
 ## CI plots
 	
 	##mass plots general
-	massPlot = Plot("DileptonMass","CIDiMuonMass",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/10 GeV", cuts = "", variable = "dil_mass")
+	massPlot = Plot("DimuonMassVertexConstrained","CIDiMuonMass",xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/10 GeV", cuts = "dil_mass > 1300", variable = "dil_mass")
 	massCSPosPlot = Plot("DimuonMassVertexConstrained_CSPos","CIDiMuonMassCSPos",xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "cos_cs > 0", variable = "dil_mass")
 	massCSNegPlot = Plot("DimuonMassVertexConstrained_CSNeg","CIDiMuonMassCSNeg",xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "cos_cs < 0", variable = "dil_mass")
               
@@ -320,4 +320,7 @@ class plots:
 
 
 	##CosTheta* plot
-	CosThetaStarPlot=Plot("CosThetaStarDilepton","CosThetaStarDilepton",xLabel="dilepton cos(theta*)[]",log=False,xRange=[-1,1],nBins = 10,rebin=10,yLabel="Events/10", cuts = "", variable = "cos_cs")
+	CosThetaStarPlot=Plot("CosThetaStarDilepton","CosThetaStarDilepton",xLabel="dilepton cos(theta*)[]",log=False,xRange=[-1,1],nBins = 10,rebin=10,yLabel="Events/10", cuts = "dil_mass > 1300", variable = "cos_cs")
+
+	##Chi plot
+	ChiPlot=Plot("ChiDilepton","ChiDilepton",xLabel="dilepton chi[]",log=False,xRange=[0,30],nBins = 30,rebin=1,yLabel="Events", cuts = "dil_mass > 1300", variable = "chi_dilepton")
