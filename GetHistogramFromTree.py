@@ -41,6 +41,7 @@ def plotDataMC(args,plot):
 	
 	eventCounts = totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/filesM300New/mc/")	
 	mcTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/mc/")
+	#print "mcTrees : ", mcTrees
 	eventCountsDY=totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/filesM300New/mc/")
 	SignDYTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/mc/")
 	dataTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/")
@@ -185,7 +186,7 @@ def plotDataMC(args,plot):
 		if logScale:
 			yMax = yMax*1000
 		else:
-			yMax = yMax*1.5
+			yMax = yMax*16
 	
 	else: yMax = plot.yMax
 	#print plot.xMin, plot.xMax
@@ -308,25 +309,30 @@ def plotDataMC(args,plot):
 
 	##Signals
 
-	binningD={"binningMass": [300,500,700,1100,1900,3500], "binningCosThetaStar": [-1,-0.8,-0.6,-0.4,-0.2,0,0.2,0.4,0.6,0.8,1]}
-
+	binningD={"binningMass": [300,500,700,1100,1900,3500], "binningCosThetaStar": [-1,-0.8,-0.6,-0.4,-0.2,0,0.2,0.4,0.6,0.8,1], "binningChi": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]}
+	binningDD={"binningMass": [HistoB.GetXaxis().FindBin(300),HistoB.GetXaxis().FindBin(500),HistoB.GetXaxis().FindBin(700),HistoB.GetXaxis().FindBin(1100),HistoB.GetXaxis().FindBin(1900),HistoB.GetXaxis().FindBin(3500)], "binningCosThetaStar": [HistoB.GetXaxis().FindBin(-1),HistoB.GetXaxis().FindBin(-0.8+0.001),HistoB.GetXaxis().FindBin(-0.6),HistoB.GetXaxis().FindBin(-0.4),HistoB.GetXaxis().FindBin(-0.2),HistoB.GetXaxis().FindBin(0),HistoB.GetXaxis().FindBin(0.2),HistoB.GetXaxis().FindBin(0.4),HistoB.GetXaxis().FindBin(0.6),HistoB.GetXaxis().FindBin(0.8),HistoB.GetXaxis().FindBin(1)], "binningChi": [HistoB.GetXaxis().FindBin(0),HistoB.GetXaxis().FindBin(1),HistoB.GetXaxis().FindBin(2),HistoB.GetXaxis().FindBin(3),HistoB.GetXaxis().FindBin(4),HistoB.GetXaxis().FindBin(5),HistoB.GetXaxis().FindBin(6),HistoB.GetXaxis().FindBin(7),HistoB.GetXaxis().FindBin(8),HistoB.GetXaxis().FindBin(9),HistoB.GetXaxis().FindBin(10),HistoB.GetXaxis().FindBin(11),HistoB.GetXaxis().FindBin(12),HistoB.GetXaxis().FindBin(13),HistoB.GetXaxis().FindBin(14),HistoB.GetXaxis().FindBin(15),HistoB.GetXaxis().FindBin(16),HistoB.GetXaxis().FindBin(17),HistoB.GetXaxis().FindBin(18),HistoB.GetXaxis().FindBin(19),HistoB.GetXaxis().FindBin(20),HistoB.GetXaxis().FindBin(21),HistoB.GetXaxis().FindBin(22),HistoB.GetXaxis().FindBin(23),HistoB.GetXaxis().FindBin(24),HistoB.GetXaxis().FindBin(25),HistoB.GetXaxis().FindBin(26),HistoB.GetXaxis().FindBin(27),HistoB.GetXaxis().FindBin(28),HistoB.GetXaxis().FindBin(29),HistoB.GetXaxis().FindBin(30)]}
+	#print binningDD
 
 	for index, signal in enumerate(signals):
 		if not os.path.exists("rootfiles"):
 			os.makedirs("rootfiles")
-		OutputFile=TFile("rootfiles/"+"%s"%(signal.label)+"_"+"%s"%(plot.histName)+".root","RECREATE")
+		OutputFile=TFile("rootfiles/"+"%s"%(signal.label)+"_"+"%s"%(plot.histName)+"Up.root","RECREATE")
      		HistoS = signalhists[index]
 		SignalName.append(signal.label)
 
 
 		if "Mass" in plot.histName:
-			binning=binningD["binningMass"]
+			binning=binningDD["binningMass"]
+
 
 		if "CosThetaStar" in plot.histName:
-			binning=binningD["binningCosThetaStar"]
+			binning=binningDD["binningCosThetaStar"]
+
+		if "Chi" in plot.histName:
+			binning=binningDD["binningChi"]
 
 		
-
+		#print binning
 
 
 
@@ -334,26 +340,116 @@ def plotDataMC(args,plot):
 		newHistoB = TH1F("bkgHist","bkgHist",len(binning)-1,array("f",binning))	
 		for index, binBoundary in enumerate(binning):
     			if index < len(binning)-1:
-     				newHistoB.SetBinContent(index+1,HistoB.Integral(HistoB.GetXaxis().FindBin(binBoundary),HistoB.GetXaxis().FindBin(binning[index+1])))
+     				newHistoB.SetBinContent(index+1,HistoB.Integral(binBoundary,binning[index+1]-1))
 
 
 		newHistoS = TH1F("sigHist","sigHist",len(binning)-1,array("f",binning))
 		for index, binBoundary in enumerate(binning):
     			if index < len(binning)-1:
-     				newHistoS.SetBinContent(index+1,HistoS.Integral(HistoS.GetXaxis().FindBin(binBoundary),HistoS.GetXaxis().FindBin(binning[index+1]))-HistoSDY.Integral(HistoSDY.GetXaxis().FindBin(binBoundary),HistoSDY.GetXaxis().FindBin(binning[index+1])))
+     				newHistoS.SetBinContent(index+1,HistoS.Integral(binBoundary,binning[index+1]-1)-HistoSDY.Integral(binBoundary,binning[index+1]-1))
 
 		newHistoD = TH1F("dataHist","dataHist",len(binning)-1,array("f",binning))
 		for index, binBoundary in enumerate(binning):
     			if index < len(binning)-1:
-     				newHistoD.SetBinContent(index+1,HistoB.Integral(HistoB.GetXaxis().FindBin(binBoundary),HistoB.GetXaxis().FindBin(binning[index+1]))+HistoS.Integral(HistoS.GetXaxis().FindBin(binBoundary),HistoS.GetXaxis().FindBin(binning[index+1]))-HistoSDY.Integral(HistoSDY.GetXaxis().FindBin(binBoundary),HistoSDY.GetXaxis().FindBin(binning[index+1])))
+     				newHistoD.SetBinContent(index+1,HistoB.Integral(binBoundary,binning[index+1]-1)+HistoS.Integral(binBoundary,binning[index+1]-1)-HistoSDY.Integral(binBoundary,binning[index+1]-1))
 
-		print newHistoB.Integral(0,newHistoB.GetSize()),newHistoS.Integral(0,newHistoS.GetSize()),newHistoD.Integral(0,newHistoD.GetSize())
+		#print newHistoB.Integral(0,newHistoB.GetSize()),newHistoS.Integral(0,newHistoS.GetSize()),HistoSDY.Integral(0,newHistoD.GetSize())
+
 	
+
+
+		##Uncertainty mass plots varied with 1%
+
+
+
+#		for event in mcTrees:
+#
+#			dil_mass_up=1.01*dil_mass
+#			
+#			newHistoBU = TH1F("bkgHistUp","bkgHistUp",len(binning)-1,array("f",binning))	
+#			for index, binBoundary in enumerate(binning):
+#   				if index < len(binning)-1:
+#    					newHistoBU.SetBinContent(index+1,HistoB.Integral(binBoundary,binning[index+1]-1))
+#
+#
+#			newHistoSU = TH1F("sigHistUp","sigHistUp",len(binning)-1,array("f",binning))
+#			for index, binBoundary in enumerate(binning):
+#  				if index < len(binning)-1:
+#     					newHistoSU.SetBinContent(index+1,HistoS.Integral(binBoundary,binning[index+1]-1)-HistoSDY.Integral(binBoundary,binning[index+1]-1))
+#
+#			newHistoDU = TH1F("dataHistUp","dataHistUp",len(binning)-1,array("f",binning))
+#			for index, binBoundary in enumerate(binning):
+#    				if index < len(binning)-1:
+#    					newHistoDU.SetBinContent(index+1,HistoB.Integral(binBoundary,binning[index+1]-1)+HistoS.Integral(binBoundary,binning[index+1]-1)-HistoSDY.Integral(binBoundary,binning[index+1]-1))
+#
+#
+#			dil_mass_down=0.99*dil_mass
+#
+#			newHistoBD = TH1F("bkgHistDown","bkgHistDown",len(binning)-1,array("f",binning))	
+#			for index, binBoundary in enumerate(binning):
+#    				if index < len(binning)-1:
+#     					newHistoBD.SetBinContent(index+1,HistoB.Integral(binBoundary,binning[index+1]-1))
+#
+#
+#			newHistoSD = TH1F("sigHistDown","sigHistDown",len(binning)-1,array("f",binning))
+#			for index, binBoundary in enumerate(binning):
+#  				if index < len(binning)-1:
+#     					newHistoSD.SetBinContent(index+1,HistoS.Integral(binBoundary,binning[index+1]-1)-HistoSDY.Integral(binBoundary,binning[index+1]-1))
+#
+#			newHistoDD = TH1F("dataHistDown","dataHistDown",len(binning)-1,array("f",binning))
+#			for index, binBoundary in enumerate(binning):
+#    				if index < len(binning)-1:
+#     					newHistoDD.SetBinContent(index+1,HistoB.Integral(binBoundary,binning[index+1]-1)+HistoS.Integral(binBoundary,binning[index+1]-1)-HistoSDY.Integral(binBoundary,binning[index+1]-1))
 
 		OutputFile.Write()
 		OutputFile.Close()
 
-					
+		##Inverse chi rootfile
+
+		if "Chi" in plot.histName:
+
+			OutputFile2=TFile("rootfiles/"+"%s"%(signal.label)+"_"+"%s"%(plot.histName)+"_INVERSEDUp.root","RECREATE")
+	     		#HistoS = signalhists[index]
+			#SignalName.append(signal.label)
+
+			binning=[HistoB.GetXaxis().FindBin(0),HistoB.GetXaxis().FindBin(1),HistoB.GetXaxis().FindBin(2),HistoB.GetXaxis().FindBin(3),HistoB.GetXaxis().FindBin(4),HistoB.GetXaxis().FindBin(5),HistoB.GetXaxis().FindBin(6),HistoB.GetXaxis().FindBin(7),HistoB.GetXaxis().FindBin(8),HistoB.GetXaxis().FindBin(9),HistoB.GetXaxis().FindBin(10),HistoB.GetXaxis().FindBin(11),HistoB.GetXaxis().FindBin(12),HistoB.GetXaxis().FindBin(13),HistoB.GetXaxis().FindBin(14),HistoB.GetXaxis().FindBin(15),HistoB.GetXaxis().FindBin(16)]
+			newHistoB = TH1F("bkgHist","bkgHist",len(binning)-1,array("f",binning))	
+			for index, binBoundary in enumerate(binning):
+    				if index < len(binning)-1:
+					a=HistoB.Integral(binBoundary,binning[index+1]-1)
+					if a==0:
+						a=a
+					else:
+						a=1/a
+     					newHistoB.SetBinContent(index+1,a)
+
+
+			newHistoS = TH1F("sigHist","sigHist",len(binning)-1,array("f",binning))
+			for index, binBoundary in enumerate(binning):
+    				if index < len(binning)-1:
+					b=(HistoS.Integral(binBoundary,binning[index+1]-1)-HistoSDY.Integral(binBoundary,binning[index+1]-1))
+					if b==0:
+						b=b
+					else:
+						b=1/b
+     					newHistoS.SetBinContent(index+1,b)
+	
+			newHistoD = TH1F("dataHist","dataHist",len(binning)-1,array("f",binning))
+			for index, binBoundary in enumerate(binning):
+    				if index < len(binning)-1:
+					c=(HistoB.Integral(binBoundary,binning[index+1]-1)+HistoS.Integral(binBoundary,binning[index+1]-1)-HistoSDY.Integral(binBoundary,binning[index+1]-1))
+					if c==0:
+						c=c
+					else:
+						c=1/c
+     					newHistoD.SetBinContent(index+1,c)
+
+
+				
+
+			OutputFile2.Write()
+			OutputFile2.Close()
+	
 if __name__ == "__main__":
 	
 	
@@ -397,7 +493,7 @@ if __name__ == "__main__":
  	        #args.plot = ["massPlot","massPlot2","massPlot3"]
 		
 		## CI plots
-		args.plot = ["massPlot","CosThetaStarPlot"]#"massPlot","massCSPosPlot","massCSNegPlot","massPlotBB","massCSPosPlotBB","massCSNegPlotBB","massPlotBE","massCSPosPlotBE","massCSNegPlotBE","CosThetaStarPlot"]
+		args.plot = ["massPlot","massCSPosPlot","massCSNegPlot","massPlotBB","massCSPosPlotBB","massCSNegPlotBB","massPlotBE","massCSPosPlotBE","massCSNegPlotBE","CosThetaStarPlot","ChiPlot"]
 		
 	for plot in args.plot:
 		plotObject = getPlot(plot)
