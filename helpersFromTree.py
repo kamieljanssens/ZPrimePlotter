@@ -89,8 +89,29 @@ def getHistoFromTree(tree,plot,nEvents = -1):
 		result = TH1F(name, "", len(plot.binning)-1, array("f",plot.binning))
 		
 	result.Sumw2()
-	tree.Draw("%s>>%s"%(plot.variable, name), plot.cut, "goff", nEvents)
+	#tree.Draw("%s>>%s"%(plot.variable, name), plot.cut, "goff", nEvents)
 	
+	cuts = plot.cut.split("&&")
+	
+
+		
+	
+	for index,cut in enumerate(cuts):
+ 		if "dil_mass >" in cut:
+ 			massCut = cut
+			
+  
+	plot.cut = plot.cut.replace(massCut, "")
+
+	tempTree=tree.CopyTree(plot.cut)
+
+	tempTTree=tempTree.CopyTree(massCut)
+
+	for event in tempTTree:
+		result.Fill(event.dil_mass*plot.scale)
+
+	
+
 	result.SetBinContent(plot.nBins,result.GetBinContent(plot.nBins)+result.GetBinContent(plot.nBins+1))
 	if result.GetBinContent(plot.nBins) >= 0.:
 		result.SetBinError(plot.nBins,sqrt(result.GetBinContent(plot.nBins)))
