@@ -68,10 +68,38 @@ crossSections = {
 
 "CITo2Mu_Lam10TeVConLL":1.3*0.63935,
 "CITo2Mu_Lam10TeVConLR":1.3*0.684785,
-"CITo2Mu_Lam10TeVConRR":1.3*0.640769 ,
+"CITo2Mu_Lam10TeVConRR":1.3*0.640769,
 "CITo2Mu_Lam10TeVDesLL":1.3*0.557603,
 "CITo2Mu_Lam10TeVDesLR":1.3*0.576513,
 "CITo2Mu_Lam10TeVDesRR":1.3*0.547086,
+
+"CITo2Mu_Lam16TeVConLL":1.3*0.3718,
+"CITo2Mu_Lam16TeVConLR":1.3*0.7341,
+"CITo2Mu_Lam16TeVConRR":1.3*0.3725,
+"CITo2Mu_Lam16TeVDesLL":1.3*0.3739,
+"CITo2Mu_Lam16TeVDesLR":1.3*0.7342,
+"CITo2Mu_Lam16TeVDesRR":1.3*0.3333,  #### ????
+
+"CITo2Mu_Lam22TeVConLL":1.3*0.3637,
+"CITo2Mu_Lam22TeVConLR":1.3*0.7486,
+"CITo2Mu_Lam22TeVConRR":1.3*0.3737,
+"CITo2Mu_Lam22TeVDesLL":1.3*0.3551,
+"CITo2Mu_Lam22TeVDesLR":1.3*0.7283,
+"CITo2Mu_Lam22TeVDesRR":1.3*0.3629,
+
+"CITo2Mu_Lam28TeVConLL":1.3*0.3333,  #### ????
+"CITo2Mu_Lam28TeVConLR":1.3*0.7333,  #### ????
+"CITo2Mu_Lam28TeVConRR":1.3*0.3333,  #### ????
+"CITo2Mu_Lam28TeVDesLL":1.3*0.3333,  #### ????
+"CITo2Mu_Lam28TeVDesLR":1.3*0.7333,  #### ????
+"CITo2Mu_Lam28TeVDesRR":1.3*0.3333,  #### ????
+
+"CITo2Mu_Lam34TeVConLL":1.3*0.3333,  #### ????
+"CITo2Mu_Lam34TeVConLR":1.3*0.7333,  #### ????
+"CITo2Mu_Lam34TeVConRR":1.3*0.3333,  #### ????
+"CITo2Mu_Lam34TeVDesLL":1.3*0.7333,  #### ????
+"CITo2Mu_Lam34TeVDesLR":1.3*0.7333,  #### ????
+"CITo2Mu_Lam34TeVDesRR":1.3*0.3333,  #### ????
 
 "DYTo2Mu_M300":1.3*0.562538,
 }
@@ -145,7 +173,227 @@ class Signals:
 		scaleFac     = 1.	
 		additionalSelection = None
 
+	class CITo2Mu_Lam16TeVConLL:
+		subprocesses = ["CITo2Mu_Lam16TeVConLL"]
+		label = "CITo2Mu_Lam16TeVConLL"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con LL"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kAzure+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam16TeVConLR:
+		subprocesses = ["CITo2Mu_Lam16TeVConLR"]
+		label = "CITo2Mu_Lam16TeVConLR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con LR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kRed-4
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam16TeVConRR:
+		subprocesses = ["CITo2Mu_Lam16TeVConRR"]
+		label = "CITo2Mu_Lam16TeVConRR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con RR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kYellow
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam16TeVDesLL:
+		subprocesses = ["CITo2Mu_Lam16TeVDesLL"]
+		label = "CITo2Mu_Lam16TeVDesLL"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des LL"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kBlue+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam16TeVDesLR:
+		subprocesses = ["CITo2Mu_Lam16TeVDesLR"]
+		label = "CITo2Mu_Lam16TeVDesLR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des LR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kGreen+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam16TeVDesRR:
+		subprocesses = ["CITo2Mu_Lam16TeVDesRR"]
+		label = "CITo2Mu_Lam16TeVDesRR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des RR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kMagenta+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
 
+	class CITo2Mu_Lam22TeVConLL:
+		subprocesses = ["CITo2Mu_Lam22TeVConLL"]
+		label = "CITo2Mu_Lam22TeVConLL"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con LL"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kAzure+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam22TeVConLR:
+		subprocesses = ["CITo2Mu_Lam22TeVConLR"]
+		label = "CITo2Mu_Lam22TeVConLR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con LR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kRed-4
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam22TeVConRR:
+		subprocesses = ["CITo2Mu_Lam22TeVConRR"]
+		label = "CITo2Mu_Lam22TeVConRR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con RR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kYellow
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam22TeVDesLL:
+		subprocesses = ["CITo2Mu_Lam22TeVDesLL"]
+		label = "CITo2Mu_Lam22TeVDesLL"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des LL"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kBlue+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam22TeVDesLR:
+		subprocesses = ["CITo2Mu_Lam22TeVDesLR"]
+		label = "CITo2Mu_Lam22TeVDesLR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des LR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kGreen+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam22TeVDesRR:
+		subprocesses = ["CITo2Mu_Lam22TeVDesRR"]
+		label = "CITo2Mu_Lam22TeVDesRR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des RR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kMagenta+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+
+
+	class CITo2Mu_Lam28TeVConLL:
+		subprocesses = ["CITo2Mu_Lam28TeVConLL"]
+		label = "CITo2Mu_Lam28TeVConLL"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con LL"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kAzure+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam28TeVConLR:
+		subprocesses = ["CITo2Mu_Lam28TeVConLR"]
+		label = "CITo2Mu_Lam28TeVConLR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con LR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kRed-4
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam28TeVConRR:
+		subprocesses = ["CITo2Mu_Lam28TeVConRR"]
+		label = "CITo2Mu_Lam28TeVConRR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con RR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kYellow
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam28TeVDesLL:
+		subprocesses = ["CITo2Mu_Lam28TeVDesLL"]
+		label = "CITo2Mu_Lam28TeVDesLL"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des LL"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kBlue+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam28TeVDesLR:
+		subprocesses = ["CITo2Mu_Lam28TeVDesLR"]
+		label = "CITo2Mu_Lam28TeVDesLR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des LR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kGreen+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam28TeVDesRR:
+		subprocesses = ["CITo2Mu_Lam28TeVDesRR"]
+		label = "CITo2Mu_Lam28TeVDesRR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des RR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kMagenta+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+
+
+	class CITo2Mu_Lam34TeVConLL:
+		subprocesses = ["CITo2Mu_Lam34TeVConLL"]
+		label = "CITo2Mu_Lam34TeVConLL"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con LL"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kAzure+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam34TeVConLR:
+		subprocesses = ["CITo2Mu_Lam34TeVConLR"]
+		label = "CITo2Mu_Lam34TeVConLR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con LR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kRed-4
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam34TeVConRR:
+		subprocesses = ["CITo2Mu_Lam34TeVConRR"]
+		label = "CITo2Mu_Lam34TeVConRR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Con RR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kYellow
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam34TeVDesLL:
+		subprocesses = ["CITo2Mu_Lam34TeVDesLL"]
+		label = "CITo2Mu_Lam34TeVDesLL"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des LL"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kBlue+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam34TeVDesLR:
+		subprocesses = ["CITo2Mu_Lam34TeVDesLR"]
+		label = "CITo2Mu_Lam34TeVDesLR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des LR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kGreen+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
+	class CITo2Mu_Lam34TeVDesRR:
+		subprocesses = ["CITo2Mu_Lam34TeVDesRR"]
+		label = "CITo2Mu_Lam34TeVDesRR"		#"CI #rightarrow #mu^{+}#mu^{-} #Lambda 10 TeV - Des RR"
+		fillcolor = ROOT.kWhite
+		fillstyle = 0
+		linecolor = ROOT.kMagenta+1
+		uncertainty = 0.0
+		scaleFac     = 1.	
+		additionalSelection = None
 		
 class DYsignals:
 
@@ -272,7 +520,7 @@ class Plot:
 	fileName = "none.pdf"
 	log = False
 	
-	def __init__(self,histName,plotName, yRange = None, xRange = None, nBins = 0, xLabel = "", yLabel = "",log=False,rebin = None, binning = [], cuts = "", variable = ""):
+	def __init__(self,histName,plotName, yRange = None, xRange = None, nBins = 0, xLabel = "", yLabel = "",log=False,rebin = None, binning = [], cuts = "", variable = "", scale = 1.0):
 		self.histName=histName
 		self.xaxis=xLabel
 		self.yaxis=yLabel
@@ -286,6 +534,7 @@ class Plot:
 		self.fileName= plotName
 		self.cut = cuts
 		self.variable = variable
+		self.scale = scale
 		if rebin != None:
 			self.rebin = rebin
 		if log:
@@ -305,27 +554,28 @@ class plots:
 
 ## CI plots
 	
-	masscut = 1500
+	masscut = 300
+	scaletemp=1.00
 
 	##mass plots general
-	massPlot = Plot("DimuonMassVertexConstrained","CIDiMuonMass_%s"%masscut,xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/10 GeV", cuts = "1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
-	massCSPosPlot = Plot("DimuonMassVertexConstrained_CSPos","CIDiMuonMassCSPos_%s"%masscut,xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "cos_cs > 0 && 1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
-	massCSNegPlot = Plot("DimuonMassVertexConstrained_CSNeg","CIDiMuonMassCSNeg_%s"%masscut,xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "cos_cs < 0 && 1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
+	massPlot = Plot("DimuonMassVertexConstrained","CIDiMuonMass_%s"%masscut,xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/10 GeV", cuts = "scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
+	massCSPosPlot = Plot("DimuonMassVertexConstrained_CSPos","CIDiMuonMassCSPos_%s"%masscut,xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "cos_cs > 0 && scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
+	massCSNegPlot = Plot("DimuonMassVertexConstrained_CSNeg","CIDiMuonMassCSNeg_%s"%masscut,xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "cos_cs < 0 && scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
               
 	##mass plot bb
-	massPlotBB = Plot("DimuonMassVertexConstrained_bb","CIDiMuonMass_bb_%s"%masscut,xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "abs(lep_eta[0]) < 1.2 && abs(lep_eta[1]) < 1.2 && 1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
-	massCSPosPlotBB = Plot("DimuonMassVertexConstrained_bb_CSPos","CIDiMuonMassCSPos_bb_%s"%masscut,xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "abs(lep_eta[0]) < 1.2 && abs(lep_eta[1]) < 1.2 && cos_cs > 0 && 1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
-	massCSNegPlotBB = Plot("DimuonMassVertexConstrained_bb_CSNeg","CIDiMuonMassCSNeg_bb_%s"%masscut,xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "abs(lep_eta[0]) < 1.2 && abs(lep_eta[1]) < 1.2 && cos_cs < 0 && 1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
+	massPlotBB = Plot("DimuonMassVertexConstrained_bb","CIDiMuonMass_bb_%s"%masscut,xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "abs(lep_eta[0]) < 1.2 && abs(lep_eta[1]) < 1.2 && scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
+	massCSPosPlotBB = Plot("DimuonMassVertexConstrained_bb_CSPos","CIDiMuonMassCSPos_bb_%s"%masscut,xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "abs(lep_eta[0]) < 1.2 && abs(lep_eta[1]) < 1.2 && cos_cs > 0 && scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
+	massCSNegPlotBB = Plot("DimuonMassVertexConstrained_bb_CSNeg","CIDiMuonMassCSNeg_bb_%s"%masscut,xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "abs(lep_eta[0]) < 1.2 && abs(lep_eta[1]) < 1.2 && cos_cs < 0 && scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
               
 	##mass plot be	
-	massPlotBE = Plot("DimuonMassVertexConstrained_be","CIDiMuonMass_be_%s"%masscut,xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "!(abs(lep_eta[0])<1.2 && abs(lep_eta[1])<1.2) && 1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
-	massCSPosPlotBE = Plot("DimuonMassVertexConstrained_be_CSPos","CIDiMuonMassCSPos_be_%s"%masscut,xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "!(abs(lep_eta[0])<1.2 && abs(lep_eta[1])<1.2) && cos_cs > 0 && 1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
-	massCSNegPlotBE = Plot("DimuonMassVertexConstrained_be_CSNeg","CIDiMuonMassCSNeg_be_%s"%masscut,xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "!(abs(lep_eta[0])<1.2 && abs(lep_eta[1])<1.2) && cos_cs < 0 && 1.00*dil_mass > %d"%masscut, variable = "1.00*dil_mass")
+	massPlotBE = Plot("DimuonMassVertexConstrained_be","CIDiMuonMass_be_%s"%masscut,xLabel="dimuon mass [GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=50,yLabel="Events/50 GeV", cuts = "!(abs(lep_eta[0])<1.2 && abs(lep_eta[1])<1.2) && scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
+	massCSPosPlotBE = Plot("DimuonMassVertexConstrained_be_CSPos","CIDiMuonMassCSPos_be_%s"%masscut,xLabel="dimuon mass Pos cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "!(abs(lep_eta[0])<1.2 && abs(lep_eta[1])<1.2) && cos_cs > 0 && scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
+	massCSNegPlotBE = Plot("DimuonMassVertexConstrained_be_CSNeg","CIDiMuonMassCSNeg_be_%s"%masscut,xLabel="dimuon mass Neg cos theta*[GeV]",log=True,xRange=[0,3000],nBins = 100,rebin=10,yLabel="Events/10 GeV", cuts = "!(abs(lep_eta[0])<1.2 && abs(lep_eta[1])<1.2) && cos_cs < 0 && scaletemp*dil_mass > %d"%masscut, variable = "dil_mass",scale=scaletemp)
 	
 
 
 	##CosTheta* plot
-	CosThetaStarPlot=Plot("CosThetaStarDilepton","CosThetaStarDilepton_%s"%masscut,xLabel="dilepton cos(theta*)[]",log=False,xRange=[-1,1],nBins = 10,rebin=10,yLabel="Events/10", cuts = "1.00*dil_mass > %d"%masscut, variable = "cos_cs")
+	CosThetaStarPlot=Plot("CosThetaStarDilepton","CosThetaStarDilepton_%s"%masscut,xLabel="dilepton cos(theta*)[]",log=False,xRange=[-1,1],nBins = 10,rebin=10,yLabel="Events/10", cuts = "scaletemp*dil_mass > %d"%masscut, variable = "cos_cs",scale=scaletemp)
 
 	##Chi plot
-	ChiPlot=Plot("ChiDilepton","ChiDilepton_%s"%masscut,xLabel="dilepton chi[]",log=False,xRange=[0,30],nBins = 30,rebin=1,yLabel="Events", cuts = "1.00*dil_mass > %d"%masscut, variable = "chi_dilepton")
+	ChiPlot=Plot("ChiDilepton","ChiDilepton_%s"%masscut,xLabel="dilepton chi[]",log=False,xRange=[0,30],nBins = 30,rebin=1,yLabel="Events", cuts = "scaletemp*dil_mass > %d"%masscut, variable = "chi_dilepton",scale=scaletemp)

@@ -43,7 +43,7 @@ def plotDataMC(args,plot):
 	mcTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/mc/")
 	#print "mcTrees : ", mcTrees
 	eventCountsDY=totalNumberOfGeneratedEvents("/afs/cern.ch/work/j/jschulte/public/filesM300New/mc/")
-	SignDYTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/mc/")
+	SignDYTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/")
 	dataTrees = readTrees("/afs/cern.ch/work/j/jschulte/public/filesM300New/")
 
 	#print eventCounts
@@ -214,12 +214,13 @@ def plotDataMC(args,plot):
 		SignalName = []
 		for Signal in signals:
 			
-			signalhist = Signal.loadHistogramFromTree(lumi,mcTrees,plot)
+			signalhist = Signal.loadHistogramFromTree(lumi,SignDYTrees,plot)
 			signalhist.SetLineWidth(2)
 	#		signalhist.Add(stack.theHistogram)
 			signalhist.SetMinimum(0.1)
 			signalhist.Draw("samehist")
 			signalhists.append(signalhist)	
+			SignalName.append(Signal.label)
 			print Signal.samples, signalhist.Integral(0,signalhist.GetSize())
 
 
@@ -228,7 +229,7 @@ def plotDataMC(args,plot):
 		DYSignalName = []
 		for DYSignal in DYSignals:
 			
-			DYSignalhist = DYSignal.loadHistogramFromTree(lumi,mcTrees,plot)
+			DYSignalhist = DYSignal.loadHistogramFromTree(lumi,SignDYTrees,plot)
 			DYSignalhist.SetLineWidth(2)
 	#		DYSignalhist.Add(stack.theHistogram)
 			DYSignalhist.SetMinimum(0.1)
@@ -284,7 +285,7 @@ def plotDataMC(args,plot):
 	if not os.path.exists("NPlotsCI"):
 		os.makedirs("NPlotsCI")	
 	#print plot.fileName
-	hCanvas.Print("NPlotsCI/"+plot.fileName+"_fromTree.png")
+	hCanvas.Print("NPlotsCI/"+plot.fileName+"_"+args.signals[0]+"_fromTree.png")
 
 
 
@@ -316,7 +317,7 @@ def plotDataMC(args,plot):
 	for index, signal in enumerate(signals):
 		if not os.path.exists("rootfiles"):
 			os.makedirs("rootfiles")
-		OutputFile=TFile("rootfiles/"+"%s"%(signal.label)+"_"+"%s"%(plot.histName)+"Up.root","RECREATE")
+		OutputFile=TFile("rootfiles/"+"%s"%(signal.label)+"_"+"%s"%(plot.histName)+".root","RECREATE")
      		HistoS = signalhists[index]
 		SignalName.append(signal.label)
 
@@ -408,7 +409,7 @@ def plotDataMC(args,plot):
 
 		if "Chi" in plot.histName:
 
-			OutputFile2=TFile("rootfiles/"+"%s"%(signal.label)+"_"+"%s"%(plot.histName)+"_INVERSEDUp.root","RECREATE")
+			OutputFile2=TFile("rootfiles/"+"%s"%(signal.label)+"_"+"%s"%(plot.histName)+"_INVERSED.root","RECREATE")
 	     		#HistoS = signalhists[index]
 			#SignalName.append(signal.label)
 
