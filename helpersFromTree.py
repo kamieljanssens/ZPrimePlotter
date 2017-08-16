@@ -1,7 +1,8 @@
 import ROOT
+from ROOT import TCanvas, TPad, TH1F, TH2F, TH1I, THStack, TLegend, TMath
 import gc
 from array import array
-from ROOT import TCanvas, TPad, TH1F, TH2F, TH1I, THStack, TLegend, TMath
+
 from ConfigParser import ConfigParser
 from math import sqrt
 from defsFromTree import defineMyColors, myColors, crossSections
@@ -103,9 +104,13 @@ def getHistoFromTree(tree,plot,nEvents = -1):
   
 	plot.cut = plot.cut.replace(massCut, "")
 
-	tempTree=tree.CopyTree(plot.cut)
+	print "cuts",plot.cut, massCut
 
-	tempTTree=tempTree.CopyTree(massCut)
+	novar = tree.GetEntries()
+	print "test "
+	tempTree=tree.CopyTree(massCut)
+	print "testtest"
+	tempTTree=tempTree.CopyTree(plot.cut)
 
 	for event in tempTTree:
 		result.Fill(event.dil_mass*plot.scale)
